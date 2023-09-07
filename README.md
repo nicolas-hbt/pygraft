@@ -107,7 +107,7 @@ pygraft.generate("template.yml")
 
 Interested in contributing to PyGraft? Please consider reaching out: nicolas.hubert@univ-lorraine.fr
 
-If you like PyGraft, consider downloading PyGraft and starring our GitHub repository to make it known and promote its development 😊
+If you like PyGraft, consider downloading PyGraft and starring our GitHub repository to make it known and promote its development!
 
 If you use or mention PyGraft in a publication, cite our work as:
 

@@ -37,7 +37,7 @@ If you use or mention PyGraft in a publication, cite our work as:
             Mathieu d'Aquin and
             Armelle Brun and
             Davy Monticolo},
-    title = {{PyGraft: Tailored Schemas and Knowledge Graphs at Your Fingertips}},
+    title = {{PyGraft: Configurable Generation of Schemas and Knowledge Graphs at Your Fingertips}},
     month = sep,
     year  = 2023,
     doi   = {},

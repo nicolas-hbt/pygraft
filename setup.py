@@ -1,12 +1,14 @@
 from setuptools import setup, find_packages
 
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding="utf8") as fh:
     long_description = fh.read()
 
 setup(
   name = 'pygraft',
-  version = '0.1.2.1',
-  packages = find_packages(),
+  version = '0.1.2.8',
+  packages = find_packages(exclude=('docs')),
+  include_package_data=True,
+  zip_safe=False,
   package_data={
         'pygraft': ['examples/template.json', 'examples/template.yml', 'property_checks/combinations.json', 'property_checks/compat_p1p2_inverseof.txt']
   },
@@ -15,8 +17,6 @@ setup(
   author = 'Nicolas Hubert',
   author_email = 'nicolas.hubert@univ-lorraine.fr',
   url = 'https://github.com/nicolas-hbt',
-  download_url = 'https://github.com/user/reponame/archive/v_01.tar.gz',
-  # py_modules=["generate"],
   long_description=long_description,
   long_description_content_type="text/markdown",
   keywords = ['Knowledge Graph',
@@ -24,15 +24,17 @@ setup(
               'Schema',
               'Semantic Web',
               'Synthetic Data Generator'],
-  install_requires=[            
-      'art>=6.0',
-      'matplotlib>=3.7',
-      'numpy>=1.24.2',
+  install_requires=[ 
+      'numpy>=1.24.0',         
+      'matplotlib>=3.7.0',
       'Owlready2>=0.41',
       'rdflib>=6.2.0',
-      'tabulate>=0.8.9',
-      'tqdm>=4.64.0'
+      'pyyaml',
+      'tabulate',
+      'art',
+      'tqdm'
       ],
+  python_requires='>=3.7',
   classifiers=[
     'Development Status :: 4 - Beta',
     'Intended Audience :: Science/Research',
