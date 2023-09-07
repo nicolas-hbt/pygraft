@@ -5,11 +5,10 @@ with open("README.md", "r") as fh:
 
 setup(
   name = 'pygraft',
-  packages = ['pygraft'],
   version = '0.1.1',
   packages = find_packages(),
   package_data={
-        'pygraft': ['example/template.json', 'example/template.yml', 'property_checks/combinations.json', 'property_checks/compat_p1p2_inverseof.txt']
+        'pygraft': ['examples/template.json', 'examples/template.yml', 'property_checks/combinations.json', 'property_checks/compat_p1p2_inverseof.txt']
   },
   license='MIT',
   description = 'PyGraft: Configurable Generation of Schemas and Knowledge Graphs at Your Fingertips',
