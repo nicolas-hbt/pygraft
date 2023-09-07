@@ -148,7 +148,7 @@ Related Libraries
      - |:heavy_check_mark:|
      - |:heavy_check_mark:|
      - |:x:|
-   * - PyGraph (ours)
+   * - PyGraft (ours)
      - |:heavy_check_mark:|
      - |:heavy_check_mark:|
      - |:heavy_check_mark:|
