@@ -9,6 +9,7 @@ import yaml
 from datetime import datetime
 import pkg_resources
 import subprocess
+import shutil
 
 font_styles = ["dancingfont", "rounded", "varsity", "wetletter", "chunky"]
 
@@ -160,41 +161,17 @@ def load_json(file_path):
     path = pathlib.Path(file_path)
     with path.open() as file:
         return json.load(file)
-    
-# def load_json_template():
-#     json_file_path = pkg_resources.resource_filename("pygraft", "examples/template.json")
-
-#     with open(json_file_path, "r") as file:
-#         template = json.load(file)
-
-#     # Save the template file in the current working directory
-#     current_directory = os.getcwd()
-#     template_file_path = os.path.join(current_directory, "template.json")
-
-#     with open(template_file_path, "w") as file:
-#         json.dump(template, file, indent=4)
 
 def load_json_template():
     json_file_path = pkg_resources.resource_filename("pygraft", "examples/template.json")
     destination_directory = os.getcwd()
     # Use the 'cp' command to copy the file
-    subprocess.run(["cp", json_file_path, destination_directory])
-
-# def load_yaml_template():
-#     yaml_file_path = pkg_resources.resource_filename("pygraft", "examples/template.yml")
-
-#     with open(yaml_file_path, "r") as file:
-#         template = yaml.safe_load(file)
-
-#     # Save the template file in the current working directory
-#     current_directory = os.getcwd()
-#     template_file_path = os.path.join(current_directory, "template.yml")
-
-#     with open(template_file_path, "w") as file:
-#         yaml.dump(template, file)
+    # subprocess.run(["cp", json_file_path, destination_directory])
+    shutil.copy(json_file_path, destination_directory)
 
 def load_yaml_template():
     yaml_file_path = pkg_resources.resource_filename("pygraft", "examples/template.yml")
     destination_directory = os.getcwd()
     # Use the 'cp' command to copy the file
-    subprocess.run(["cp", yaml_file_path, destination_directory])
+    # subprocess.run(["cp", yaml_file_path, destination_directory])
+    shutil.copy(yaml_file_path, destination_directory)
