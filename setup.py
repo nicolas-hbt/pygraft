@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
   name = 'pygraft',
-  version = '0.1.1',
+  version = '0.1.2',
   packages = find_packages(),
   package_data={
         'pygraft': ['examples/template.json', 'examples/template.yml', 'property_checks/combinations.json', 'property_checks/compat_p1p2_inverseof.txt']
