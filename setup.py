@@ -25,13 +25,14 @@ setup(
               'Semantic Web',
               'Synthetic Data Generator'],
   install_requires=[            
-      'art',
-      'matplotlib>=3.7',
-      'numpy>=1.24.2',
+      'numpy>=1.24.0',         
+      'matplotlib>=3.7.0',
       'Owlready2>=0.41',
       'rdflib>=6.2.0',
-      'tabulate>=0.8.9',
-      'tqdm>=4.64.0'
+      'yaml',
+      'tabulate',
+      'art',
+      'tqdm'
       ],
   classifiers=[
     'Development Status :: 4 - Beta',
