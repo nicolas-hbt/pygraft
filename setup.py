@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf8") as fh:
 
 setup(
   name = 'pygraft',
-  version = '0.1.2.8',
+  version = '0.0.1',
   packages = find_packages(exclude=('docs')),
   include_package_data=True,
   zip_safe=False,

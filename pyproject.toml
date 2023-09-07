@@ -14,6 +14,6 @@ include_trailing_comma = true
 reverse_relative = true
 
 [project]
-name = "pygraft-test"
+name = "pygraft"
 authors = [{name = "Nicolas Hubert", email = "nicolas.hubert@univ-lorraine.fr"}]
 dynamic = ["version", "description"]
