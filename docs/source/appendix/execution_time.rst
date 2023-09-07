@@ -9,9 +9,9 @@ In particular, schemas from :math:`\mathcal{S}1` to :math:`\mathcal{S}3` are sma
 Graph specifications :math:`\mathcal{G}1`, :math:`\mathcal{G}2`, and :math:`\mathcal{G}3` correspond to small-sized, medium-sized and large-sized graphs, respectively.
 
 For these 27 unique configurations, execution times w.r.t. several dimensions are computed and shown in Figure 3. Execution times related to the schema generation are omitted as they are negligible. 
-Experiments were conducted on a machine with 2 CPUs Intel Xeon E5-2650 v4, 12 cores/CPU, GPU GeForce GTX 1080 Ti, and 128GB RAM.
+Experiments were conducted on a machine with 2 CPUs Intel Xeon E5-2650 v4, 12 cores/CPU, and 128GB RAM.
    
-.. list-table:: Table 1. Generated schemas. Column headers from left to right: number of classes, class hierarchy depth, average class depth, proportion of class disjointness, number of relations, average relation specificity, and proportions of different relation properties.
+.. list-table:: Table 1. Generated schemas. Column headers from left to right: number of classes, class hierarchy depth, average class depth, proportion of class disjointness (cd), number of relations, average depth of relation domains and ranges (rs), and proportions of reflexive (rf), irreflexive (irr), asymmetric (asy), symmetric (sy), transitive (tra), and inverse (inv) relations.
    :header-rows: 1
    :align: center
 
@@ -19,7 +19,7 @@ Experiments were conducted on a machine with 2 CPUs Intel Xeon E5-2650 v4, 12 co
      - :math:`|\mathcal{C}|`
      - :math:`\operatorname{MAX}(\mathcal{D})`
      - :math:`\operatorname{AVG}(\mathcal{D})`
-     - ad
+     - cd
      - :math:`|\mathcal{R}|`
      - rs
      - ref
@@ -146,7 +146,7 @@ Experiments were conducted on a machine with 2 CPUs Intel Xeon E5-2650 v4, 12 co
      - :math:`0.3`
      - :math:`0.3`
    
-.. list-table:: Table 2. Different graph specifications. Column headers from left to right: number of entities, number of triples, proportion of untyped entities, average specific class, average multityping
+.. list-table:: Table 2. Different graph specifications. Column headers from left to right: number of entities, number of triples, proportion of untyped entities, average depth of the most specific specific class, average number of most-specific classes per multi-typed entity.
    :header-rows: 1
    :align: center
 

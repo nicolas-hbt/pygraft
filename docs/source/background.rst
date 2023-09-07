@@ -14,12 +14,9 @@ Schemas
     - Where to find domain-specific ontologies? => Links
     - The need/challenge for domain-agnostic ontologies => Melo 2017
 
-A schema -- e.g. an ontology -- refers to a structured framework defining concepts, properties, and constraints within a particular domain of knowledge :cite:`gruber1995`. 
-It helps ensure consistency, clarity, and interoperability when representing and sharing knowledge. More formally:
-
-A schema :math:`\mathcal{S} = \{ \mathcal{C}, \mathcal{P},  \mathcal{A}\}` is represented as a collection of concepts :math:`\mathcal{C}`, properties :math:`\mathcal{P}`, and axioms :math:`\mathcal{A}`.
-
-Schemas are related to the notion of Terminological Box (T-Box). The T-Box represents the terminological or schema level of an ontology, and can be defined as a set of axioms or logical statements that specify the relationships between classes and properties, such as subclass relationships, domain and range restrictions, and logical constraints.
+A schema -- e.g. an ontology -- refers to a explicit specification of a conceptualization that includes concepts, properties, and restrictions within a particular domain of knowledge :cite:`gruber1995`. 
+It helps ensure consistency, clarity, and interoperability when representing and sharing knowledge.
+We consider schemas to be represented as a collection of concepts :math:`\mathcal{C}`, properties :math:`\mathcal{P}`, and axioms :math:`\mathcal{A}`, i.e. :math:`\mathcal{S} = \{ \mathcal{C}, \mathcal{P},  \mathcal{A}\}`.
 
 ..
     some example here (RDF triples)
@@ -36,24 +33,16 @@ Knowledge Graphs
     - Toy Example
     - Benchmark KGs => links + citations
 
-On the other hand, a Knowledge Graph (KG) represents knowledge in the form of interconnected entities. It is a collection of triples, where each triple represents a labelled relation (the predicate) between two entities (the subject and object, also referred to as head and tail of the relation). A KG is formally defined as follows:
-
-A knowledge graph :math:`\mathcal{KG} = \{ \mathcal{E}, \mathcal{R},  \mathcal{T}\}` is represented as a collection of triples :math:`\mathcal{T} = \{ (h, r, t)\in \mathcal{E} \times \mathcal{R} \times \mathcal{E}\}` where :math:`\mathcal{E}` is the entity set and :math:`\mathcal{R}` is the relation set.
-
-KGs are related to the notion of Assertion Box (A-Box) that represents the assertion or instance level of an ontology. The A-Box captures the actual data or knowledge about specific individuals in the domain.
+Regarding KGs, distinct definitions co-exist :cite:`bonatti`, :cite:`ehrlinger`. In this work, we stick to the inclusive definition of Hogan et al. :cite:`kgbook`, i.e. we consider a KG to be a graph where nodes represent entities and edges represent relations between these entities.
+The link between schemas and KGs lies in the fact that schemas are often used to define the structure and semantics of a KG. In other words, a schema defines the vocabulary and rules that govern entities and relationships in a KG.
+In this view, a KG is a data graph that can be potentially enhanced with a schema :cite:`kgbook`.
 
 ..
     some example here, such as BarackObama presidentOf USA
 
-The link between schemas and KGs lies in the fact that schemas are often used to define the structure and semantics of a KG. In other words, a schema defines the vocabulary and rules that govern the entities and relationships within a KG.
-
 ..
     some example here, such as presidentOF -rdfs:domain-> Person and rdfs:range-> Country
-
-**Note**: Although the boundary between schema and KG is rarely straightforward to define, and schemas might arguably include instances, we consider a schema to be restricted to the classes, relations, and axioms that collectively capture the domain of discourse. 
-Then the KG unambiguously refers to the individuals populating the schema.
-This serves for strictly delimiting the different components of PyGraft: as explained in the :ref:`Overview` section, the Class and Relation Generators are responsible for building the schema based on user-specified parameters. Then the KG Generator is in charge of populating the generated schema with individuals.
-
+    
 
 Graph Generation
 ---------------------------

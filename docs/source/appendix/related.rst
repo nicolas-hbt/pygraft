@@ -15,7 +15,10 @@ Related Libraries
 
    This section is under construction.
 
-.. list-table:: Table 3. Feature comparison of graph generation tools
+.. list-table:: Table 3. Feature comparison of graph generation tools. "NA" is used when
+a feature is not applicable due to the characteristics of the current generation
+tool. Domain-agnostic denotes whether a given tool is able to potentially operate
+with schemas of different application fields.
    :widths: 4 5 5 9 9 5 5 5
    :header-rows: 1
    :stub-columns: 0
@@ -116,8 +119,16 @@ Related Libraries
      - |:heavy_check_mark:|
      - |:heavy_check_mark:|
      - |:x:|
-   * - Melo *et al.* :cite:`melo2017`
+   * - Bagan *et al.* :cite:`bagan2017`
+     - |:heavy_check_mark:|
+     - |:heavy_check_mark:|
      - |:x:|
+     - NA
+     - |:heavy_check_mark:|
+     - |:heavy_check_mark:|
+     - |:x:|
+   * - Melo *et al.* :cite:`melo2017`
+     - |:heavy_check_mark:|
      - |:heavy_check_mark:|
      - |:x:|
      - NA
@@ -125,7 +136,7 @@ Related Libraries
      - |:heavy_check_mark:|
      - |:x:|
    * - :math:`GDD^{x}` :cite:`feng2021`
-     - |:x:|
+     - |:heavy_check_mark:|
      - |:heavy_check_mark:|
      - |:x:|
      - NA
