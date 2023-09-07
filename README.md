@@ -80,7 +80,7 @@ For the sake of simplicity, we do not plan to modify this template and stick wit
 Generating an ontology is made possible via the ``generate_schema(path)`` function, which only requires the relative path to the configuration file.
 
 > [!IMPORTANT] 
-> For the following steps, i.e. generating a schema and a KG, you need Java to be installed and the $JAVA_HOME variable to be properly assigned. This is because the HermiT reasoner currently runs using Java.
+> For the following steps, i.e. generating a schema and a KG, you need Java to be installed and the $JAVA_HOME environment variable to be properly assigned. This is because the HermiT reasoner currently runs using Java.
 
 In our case, the configuration file is named ``template.yml`` and is located in the current working directory, thereby:
 

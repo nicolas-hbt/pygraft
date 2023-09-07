@@ -3,6 +3,9 @@
 Installation
 ============
 
+.. note::
+    In order to benefit from all the functionalities PyGraft offers, you need Java to be installed and the $JAVA_HOME environment variable to be properly assigned. This is because the HermiT reasoner currently runs using Java.
+
 The latest stable version of PyGraft can be downloaded and installed from
 `PyPI <https://pypi.org/project/pygraft>`_ with:
 
