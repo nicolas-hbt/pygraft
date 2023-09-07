@@ -15,10 +15,7 @@ Related Libraries
 
    This section is under construction.
 
-.. list-table:: Table 3. Feature comparison of graph generation tools. "NA" is used when
-a feature is not applicable due to the characteristics of the current generation
-tool. Domain-agnostic denotes whether a given tool is able to potentially operate
-with schemas of different application fields.
+.. list-table:: Table 3. Feature comparison of graph generation tools. "NA" is used when a feature is not applicable due to the characteristics of the current generation tool. Domain-agnostic denotes whether a given tool is able to potentially operate with schemas of different application fields.
    :widths: 4 5 5 9 9 5 5 5
    :header-rows: 1
    :stub-columns: 0
