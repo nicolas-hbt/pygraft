@@ -1,0 +1,7 @@
+.wy-nav-content {
+    max-width: 1000px !important;
+}
+
+.custom-width .wy-nav-content {
+    max-width: 1150px !important;
+}

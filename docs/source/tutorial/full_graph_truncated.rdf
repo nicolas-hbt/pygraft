@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:ns1="http://purl.org/dc/terms/"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:sc="http://pygraf.t/"
+>
+  <rdf:Description rdf:about="http://pygraf.t/E1810">
+    <rdf:type rdf:resource="http://pygraf.t/C21"/>
+    <sc:R47 rdf:resource="http://pygraf.t/E622"/>
+    <sc:R12 rdf:resource="http://pygraf.t/E447"/>
+    <sc:R32 rdf:resource="http://pygraf.t/E761"/>
+    <sc:R32 rdf:resource="http://pygraf.t/E4"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://pygraf.t/C21">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://pygraf.t/C37"/>
+    <owl:disjointWith rdf:resource="http://pygraf.t/C11"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://pygraf.t/R47">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <owl:inverseOf rdf:resource="http://pygraf.t/R50"/>
+  </rdf:Description>
+</rdf:RDF>
