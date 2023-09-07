@@ -25,7 +25,7 @@ setup(
               'Semantic Web',
               'Synthetic Data Generator'],
   install_requires=[            
-      'art>=6.0',
+      'art',
       'matplotlib>=3.7',
       'numpy>=1.24.2',
       'Owlready2>=0.41',
