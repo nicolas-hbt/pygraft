@@ -29,7 +29,7 @@ setup(
       'matplotlib>=3.7.0',
       'Owlready2>=0.41',
       'rdflib>=6.2.0',
-      'yaml',
+      'pyyaml',
       'tabulate',
       'art',
       'tqdm'
