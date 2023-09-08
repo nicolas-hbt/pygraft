@@ -2,8 +2,9 @@
   <img src="docs/source/logo.svg" height="300">
 </p>
 
-# PyGraft: Configurable Generation of Schemas and Knowledge Graphs at Your Fingertips
+# [PyGraft: Configurable Generation of Schemas and Knowledge Graphs at Your Fingertips](https://arxiv.org/pdf/2309.03685.pdf)
 
+This is the open-source implementation of PyGraft, initially presented in [this paper](https://arxiv.org/pdf/2309.03685.pdf).
 **PyGraft** is an open-source Python library for generating synthetic yet realistic schemas and (KGs) based on user-specified parameters. The generated resources are domain-agnostic, i.e. they are not tied to a specific application field.
 
 Being able to synthesize schemas and KGs is an important milestone for conducting research in domains where data is sensitive or not readily available. PyGraft allows researchers and practitioners to generate schemas and KGs on the fly, provided minimal knowledge about the desired specifications. 
@@ -116,15 +117,11 @@ If you like PyGraft, consider downloading PyGraft and starring our GitHub reposi
 
 If you use or mention PyGraft in a publication, cite our work as:
 
-    @misc{pygraft,
-    author= {Nicolas Hubert and
-            Pierre Monnin and
-            Mathieu d'Aquin and
-            Armelle Brun and
-            Davy Monticolo},
-    title = {{PyGraft: Configurable Generation of Schemas and Knowledge Graphs at Your Fingertips}},
-    month = sep,
-    year  = 2023,
-    doi   = {},
-    url   = {}
+    @misc{hubert2023pygraft,
+      title={PyGraft: Configurable Generation of Schemas and Knowledge Graphs at Your Fingertips}, 
+      author={Nicolas Hubert and Pierre Monnin and Mathieu d'Aquin and Armelle Brun and Davy Monticolo},
+      year={2023},
+      eprint={2309.03685},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI}
     }

@@ -31,17 +31,13 @@ If you use or mention PyGraft in a publication, cite our work as:
 
 .. code-block:: bibtex
     
-    @misc{pygraft,
-    author= {Nicolas Hubert and
-            Pierre Monnin and
-            Mathieu d'Aquin and
-            Armelle Brun and
-            Davy Monticolo},
-    title = {{PyGraft: Configurable Generation of Schemas and Knowledge Graphs at Your Fingertips}},
-    month = sep,
-    year  = 2023,
-    doi   = {},
-    url   = {}
+    @misc{hubert2023pygraft,
+      title={PyGraft: Configurable Generation of Schemas and Knowledge Graphs at Your Fingertips}, 
+      author={Nicolas Hubert and Pierre Monnin and Mathieu d'Aquin and Armelle Brun and Davy Monticolo},
+      year={2023},
+      eprint={2309.03685},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI}
     }
 
 
