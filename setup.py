@@ -12,6 +12,11 @@ setup(
   package_data={
         'pygraft': ['examples/template.json', 'examples/template.yml', 'property_checks/combinations.json', 'property_checks/compat_p1p2_inverseof.txt']
   },
+    entry_points={
+    'console_scripts': [
+        'pygraft = pygraft.main:main',
+    ],
+  },
   license='MIT',
   description = 'PyGraft: Configurable Generation of Schemas and Knowledge Graphs at Your Fingertips',
   author = 'Nicolas Hubert',
