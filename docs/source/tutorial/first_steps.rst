@@ -116,8 +116,9 @@ These fils give important information about the classes and relations of the gen
 
 .. figure:: ../img/class-trees.png
    :align: center
+   :width: 75%
 
-   Figure 2: Potential class hierarchies for the constraints num_classes = 6, max_hierarchy_depth = 3, and inheritance_ratio = 2.5. Left and middle class hierarchies are built with parameter priority. The right class hierarchy is built with a best-effort strategy, without specific parameter privilege.
+   Figure 2: Potential class hierarchies for the constraints num_classes = 6, max_hierarchy_depth = 3, and class_inheritance_ratio = 2.5. Left and middle class hierarchies are built with parameter priority. The right class hierarchy is built with a best-effort strategy, without specific parameter privilege.
 
 Generating a KG
 ---------------------
