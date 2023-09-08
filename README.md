@@ -36,7 +36,7 @@ The contributions of PyGraft are as follows:
 
 - The generated schemas and KGs are described with an extended set of RDFS and OWL constructs, allowing for both fine-grained resource descriptions and strict compliance with common Semantic Web standards.
 
-- A broad range of parameters can be specified by the user. These allow for creating an infinite number of graphs with different characteristics. More details on parameters can be found in the [Parameters section of the official documentation](https://my-tuto.readthedocs.io/en/latest/references/parameters.html).
+- A broad range of parameters can be specified by the user. These allow for creating an infinite number of graphs with different characteristics. More details on parameters can be found in the [Parameters section of the official documentation](https://pygraft.readthedocs.io/en/latest/references/parameters.html).
 
 From a high-level perspective, the entire PyGraft generation pipeline is depicted in Figure 1. In particular, Class and Relation Generators are initialized with user-specified parameters and used to build the schema incrementally. The logical consistency of the schema is subsequently checked using the HermiT reasoner from [owlready2](https://github.com/pwin/owlready2/). If you are also interested in generating a KG based on this schema, the KG Generator is initialized with KG-related parameters and fused with the previously generated schema to sequentially build the KG. Ultimately, the logical consistency of the resulting KG is (again) assessed using HermiT.
 
@@ -73,7 +73,7 @@ pygraft.create_yaml_template()
 
 Now, the template has been generated under the current working directory, and is named ``template.yml`` by default.
 
-This file contains all the tunable parameters. For more details on their meanings, please check the [Parameters section](https://my-tuto.readthedocs.io/en/latest/references/parameters.html).
+This file contains all the tunable parameters. For more details on their meanings, please check the [Parameters section](https://pygraft.readthedocs.io/en/latest/references/parameters.html).
 
 For the sake of simplicity, we do not plan to modify this template and stick with the default parameter values.
 
@@ -88,7 +88,7 @@ In our case, the configuration file is named ``template.yml`` and is located in 
 pygraft.generate_schema("template.yml")
 ```
 
-The generated schema can be retrieved in ``output/template/schema.rdf``. Additional files are created during the process: ``output/template/class_info.json`` and ``output/template/relation_info.json``. These fils give important information about the classes and relations of the generated schema, respectively.
+The generated schema can be retrieved in ``output/template/schema.rdf``. Additional files are created during the process: ``output/template/class_info.json`` and ``output/template/relation_info.json``. These files give important information about the classes and relations of the generated schema, respectively.
 
 ### Generating a KG
 
