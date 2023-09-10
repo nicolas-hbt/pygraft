@@ -2,10 +2,25 @@
   <img src="docs/source/logo.svg" height="300">
 </p>
 
+<p align="center">
+  <a href='https://opensource.org/licenses/MIT'>
+    <img src='https://img.shields.io/badge/License-MIT-blue.svg' alt='License'/>
+  </a>
+
+  <a href="https://pypi.org/project/pygraft/" alt="PyPI">
+    <img src="https://img.shields.io/pypi/v/pygraft.svg"/>
+  </a>
+
+  <a href="https://pypi.org/project/pygraft" alt="pypi downloads">
+    <img alt="pypi downloads" src="https://pepy.tech/badge/pygraft">
+  </a>
+</p>
+
 # [PyGraft: Configurable Generation of Schemas and Knowledge Graphs at Your Fingertips](https://arxiv.org/pdf/2309.03685.pdf)
 
 This is the open-source implementation of PyGraft, initially presented in [this paper](https://arxiv.org/pdf/2309.03685.pdf).
-**PyGraft** is an open-source Python library for generating synthetic yet realistic schemas and (KGs) based on user-specified parameters. The generated resources are domain-agnostic, i.e. they are not tied to a specific application field.
+
+PyGraft is an open-source Python library for generating synthetic yet realistic schemas and (KGs) based on user-specified parameters. The generated resources are domain-agnostic, i.e. they are not tied to a specific application field.
 
 Being able to synthesize schemas and KGs is an important milestone for conducting research in domains where data is sensitive or not readily available. PyGraft allows researchers and practitioners to generate schemas and KGs on the fly, provided minimal knowledge about the desired specifications. 
 
