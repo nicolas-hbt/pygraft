@@ -20,7 +20,7 @@ class RelationGenerator:
         Parameters:
             self (object): The instance of the RelationGenerator.
             kwargs (dict): Dictionary of parameter names and values.
-        
+
         Returns:
             None
         """
@@ -39,7 +39,7 @@ class RelationGenerator:
         Parameters:
             self (object): The instance of the RelationGenerator.
             kwargs (dict): Dictionary of parameter names and values.
-        
+
         Returns:
             None
         """
@@ -108,7 +108,7 @@ class RelationGenerator:
                 "prop_inverseof": prop_inverseof,
                 "prop_subpropertyof": prop_subpropertyof,
                 "prop_profiled_relations": prop_profiled_relations,
-                "relation_specificity": relation_specificity
+                "relation_specificity": relation_specificity,
             },
             "relations": self.relations,
             "rel2patterns": self.rel2patterns,
@@ -125,7 +125,7 @@ class RelationGenerator:
             "rel2inverse": self.rel2inverse,
             "rel2dom": self.rel2dom,
             "rel2range": self.rel2range,
-            "rel2superrel": self.prop2superprop
+            "rel2superrel": self.prop2superprop,
         }
 
         return relation_info
@@ -141,12 +141,19 @@ class RelationGenerator:
             None
         """
         self.relations = [f"R{i}" for i in range(1, self.num_relations + 1)]
-        self.rel2patterns = {r: set() for r in self.relations} # contains current ObjectProperties for each generated relation
+        self.rel2patterns = {
+            r: set() for r in self.relations
+        }  # contains current ObjectProperties for each generated relation
         self.pattern2rels = {tuple(sorted(p)): set() for p in self.one_rel_compatibilities}
 
-        self.reflexive_relations = random.sample(self.relations, k=int(len(self.relations) * self.prop_reflexive_relations))
+        self.reflexive_relations = random.sample(
+            self.relations, k=int(len(self.relations) * self.prop_reflexive_relations)
+        )
         self.update_rel2patterns("owl:Reflexive")
-        self.irreflexive_relations = random.sample(list(set(self.relations) - set(self.reflexive_relations)), k=int(len(self.relations) * self.prop_irreflexive_relations))
+        self.irreflexive_relations = random.sample(
+            list(set(self.relations) - set(self.reflexive_relations)),
+            k=int(len(self.relations) * self.prop_irreflexive_relations),
+        )
         self.update_rel2patterns("owl:Irreflexive")
 
         self.add_property("owl:Symmetric")
@@ -176,7 +183,9 @@ class RelationGenerator:
 
         while self.current_profile_ratio < self.prop_profiled_relations:
             self.add_one_relation_profile()
-            self.current_profile_ratio = (len(self.rel2dom) + len(self.rel2range)) / (2 * self.num_relations_wo_reflexive)
+            self.current_profile_ratio = (len(self.rel2dom) + len(self.rel2range)) / (
+                2 * self.num_relations_wo_reflexive
+            )
 
         self.add_property("rdfs:subPropertyOf")
 
@@ -191,7 +200,7 @@ class RelationGenerator:
             float: The calculated profile ratio.
         """
         return (len(self.rel2dom) + len(self.rel2range)) / (2 * len(self.relations))
-    
+
     def add_one_relation_profile(self):
         """
         Adds one relation profile based on the value of `profile_side`.
@@ -210,13 +219,13 @@ class RelationGenerator:
     def add_partial_relation_profile(self):
         """
         Generate a partial relation profile by assigning a domain/range to a relation.
-        This function selects a relation (either from the "domain" or "range" category) 
-        that has not been profiled yet and assigns a randomly sampled class to it. The 
-        function also updates the relation-specificity based on the chosen class. If the 
-        selected relation is transitive or symmetric, the function also assigns the 
-        sampled class to the corresponding "range" or "domain" relation. If the selected 
-        relation has an inverse relation, the function assigns the inverse relation the 
-        same class as the selected relation, as long as it is not reflexive. 
+        This function selects a relation (either from the "domain" or "range" category)
+        that has not been profiled yet and assigns a randomly sampled class to it. The
+        function also updates the relation-specificity based on the chosen class. If the
+        selected relation is transitive or symmetric, the function also assigns the
+        sampled class to the corresponding "range" or "domain" relation. If the selected
+        relation has an inverse relation, the function assigns the inverse relation the
+        same class as the selected relation, as long as it is not reflexive.
 
         Parameters:
             self (object): The instance of the RelationGenerator.
@@ -239,13 +248,17 @@ class RelationGenerator:
                     self.unprofiled_relations["range"].remove(rel)
                     if rel in self.rel2inverse:
                         inverse_rel = self.rel2inverse[rel]
-                        self.unprofiled_relations["dom"].remove(inverse_rel) if inverse_rel in self.unprofiled_relations["dom"] else None
+                        self.unprofiled_relations["dom"].remove(
+                            inverse_rel
+                        ) if inverse_rel in self.unprofiled_relations["dom"] else None
                         self.rel2dom[inverse_rel] = self.rel2range[rel]
 
             if rel in self.rel2inverse:
                 inverse_rel = self.rel2inverse[rel]
                 # if inverse_rel in self.unprofiled_relations["range"] and "owl:Reflexive" not in self.rel2patterns[inverse_rel]:
-                self.unprofiled_relations["range"].remove(inverse_rel) if inverse_rel in self.unprofiled_relations["range"] else None
+                self.unprofiled_relations["range"].remove(inverse_rel) if inverse_rel in self.unprofiled_relations[
+                    "range"
+                ] else None
                 self.rel2range[inverse_rel] = self.rel2dom[rel]
 
         else:
@@ -259,13 +272,17 @@ class RelationGenerator:
                     self.unprofiled_relations["dom"].remove(rel)
                     if rel in self.rel2inverse:
                         inverse_rel = self.rel2inverse[rel]
-                        self.unprofiled_relations["range"].remove(inverse_rel) if inverse_rel in self.unprofiled_relations["range"] else None
+                        self.unprofiled_relations["range"].remove(
+                            inverse_rel
+                        ) if inverse_rel in self.unprofiled_relations["range"] else None
                         self.rel2range[inverse_rel] = self.rel2dom[rel]
 
             if rel in self.rel2inverse:
                 inverse_rel = self.rel2inverse[rel]
                 # if inverse_rel in self.unprofiled_relations["dom"] and "owl:Reflexive" not in self.rel2patterns[inverse_rel]:
-                self.unprofiled_relations["dom"].remove(inverse_rel) if inverse_rel in self.unprofiled_relations["dom"] else None
+                self.unprofiled_relations["dom"].remove(inverse_rel) if inverse_rel in self.unprofiled_relations[
+                    "dom"
+                ] else None
                 self.rel2dom[inverse_rel] = self.rel2range[rel]
 
     def add_complete_relation_profile(self):
@@ -337,12 +354,12 @@ class RelationGenerator:
     def sample_class_constrained(self, current_rel_specificity, other_class):
         """
         Return a compatible class based on the current relational specificity and other class.
-        
+
         Parameters:
             self (object): The instance of the RelationGenerator.
             current_rel_specificity (float): The current relational specificity.
             other_class (str): The other class.
-        
+
         Returns:
             str: A compatible class.
         """
@@ -353,22 +370,29 @@ class RelationGenerator:
             compatible_classes = list(set(potential_classes) - set(self.class2disjoints_extended.get(other_class, [])))
 
         return random.choice(compatible_classes)
-    
+
     def filter_classes(self, current_rel_specificity):
-        
         if current_rel_specificity < self.relation_specificity:
-            filtered_classes = [cl for layer, cl in self.layer2classes.items() if layer > int(self.relation_specificity)]
-            if random.random() < 0.1: # add some noise
-                filtered_classes = [cl for layer, cl in self.layer2classes.items() if layer <= int(self.relation_specificity)]
+            filtered_classes = [
+                cl for layer, cl in self.layer2classes.items() if layer > int(self.relation_specificity)
+            ]
+            if random.random() < 0.1:  # add some noise
+                filtered_classes = [
+                    cl for layer, cl in self.layer2classes.items() if layer <= int(self.relation_specificity)
+                ]
         else:
-            filtered_classes = [cl for layer, cl in self.layer2classes.items() if layer <= int(self.relation_specificity)]
-            if random.random() < 0.1: # add some noise
-                filtered_classes = [cl for layer, cl in self.layer2classes.items() if layer > int(self.relation_specificity)]
-                
+            filtered_classes = [
+                cl for layer, cl in self.layer2classes.items() if layer <= int(self.relation_specificity)
+            ]
+            if random.random() < 0.1:  # add some noise
+                filtered_classes = [
+                    cl for layer, cl in self.layer2classes.items() if layer > int(self.relation_specificity)
+                ]
+
         return list(itertools.chain.from_iterable(filtered_classes))
 
     def get_one_rel_compatibilities(self):
-        file_path = pkg_resources.resource_filename('pygraft', 'property_checks/combinations.json')
+        file_path = pkg_resources.resource_filename("pygraft", "property_checks/combinations.json")
 
         with open(file_path, "r") as file:
             data = json.load(file)
@@ -378,7 +402,7 @@ class RelationGenerator:
 
     def get_inverseof_compatibilities(self):
         self.compat_inverseof = {}
-        file_path = pkg_resources.resource_filename('pygraft', 'property_checks/compat_p1p2_inverseof.txt')
+        file_path = pkg_resources.resource_filename("pygraft", "property_checks/compat_p1p2_inverseof.txt")
 
         with open(file_path, "r") as file:
             for line in file:
@@ -415,12 +439,10 @@ class RelationGenerator:
 
         if property in property_mappings:
             self.rel2patterns = {
-                rel: property_set | {property}
-                if rel in property_mappings[property]
-                else property_set
+                rel: property_set | {property} if rel in property_mappings[property] else property_set
                 for rel, property_set in self.rel2patterns.items()
             }
-        
+
         self.update_pattern2rels()
 
     def update_pattern2rels(self):
@@ -441,78 +463,116 @@ class RelationGenerator:
         # get all valid combinations featuring the desired property
         combinations_with_property = list(filter(lambda combi: property in combi, self.one_rel_compatibilities))
         # remove the desired property so that later on we ensure to sample relation s.t. adding a property is legit
-        combinations_without_property = [list(filter(lambda item: item != property, combi)) for combi in combinations_with_property]
+        combinations_without_property = [
+            list(filter(lambda item: item != property, combi)) for combi in combinations_with_property
+        ]
         # get all relations having one of the valid combinations
-        relation_pool = set().union(*[self.pattern2rels.get(frozenset(combi), set()) for combi in combinations_without_property])
+        relation_pool = set().union(
+            *[self.pattern2rels.get(frozenset(combi), set()) for combi in combinations_without_property]
+        )
 
         if property == "owl:Functional":
             self.functional_relations = []
             potential_relations = [key for key, values in self.rel2patterns.items() if values == set()]
-            while len(self.functional_relations) < self.prop_functional_relations * self.num_relations and potential_relations:
+            while (
+                len(self.functional_relations) < self.prop_functional_relations * self.num_relations
+                and potential_relations
+            ):
                 new_functional_relation = potential_relations.pop()
                 self.functional_relations.append(new_functional_relation)
-                self.rel2patterns[new_functional_relation] = set(self.rel2patterns[new_functional_relation]) | {"owl:Functional"}
-        
+                self.rel2patterns[new_functional_relation] = set(self.rel2patterns[new_functional_relation]) | {
+                    "owl:Functional"
+                }
+
         if property == "owl:InverseFunctional":
             self.inversefunctional_relations = []
             X = random.uniform(0.25, 0.75)
             potential_relations = [key for key, values in self.rel2patterns.items() if not values]
-            while len(self.inversefunctional_relations) < X * self.prop_inverse_functional_relations * self.num_relations and potential_relations:
+            while (
+                len(self.inversefunctional_relations) < X * self.prop_inverse_functional_relations * self.num_relations
+                and potential_relations
+            ):
                 new_inversefunctional_relation = potential_relations.pop()
                 self.inversefunctional_relations.append(new_inversefunctional_relation)
-                self.rel2patterns[new_inversefunctional_relation] = set(self.rel2patterns[new_inversefunctional_relation]) | {"owl:InverseFunctional"}
-            
+                self.rel2patterns[new_inversefunctional_relation] = set(
+                    self.rel2patterns[new_inversefunctional_relation]
+                ) | {"owl:InverseFunctional"}
+
             potential_relations = [key for key, values in self.rel2patterns.items() if not values - {"owl:Functional"}]
             potential_relations = [r for r in potential_relations if r not in self.inversefunctional_relations]
-            while len(self.inversefunctional_relations) < self.prop_inverse_functional_relations * self.num_relations and potential_relations:
+            while (
+                len(self.inversefunctional_relations) < self.prop_inverse_functional_relations * self.num_relations
+                and potential_relations
+            ):
                 new_inversefunctional_relation = potential_relations.pop()
                 self.inversefunctional_relations.append(new_inversefunctional_relation)
-                self.rel2patterns[new_inversefunctional_relation] = set(self.rel2patterns[new_inversefunctional_relation]) | {"owl:InverseFunctional"}
-                        
+                self.rel2patterns[new_inversefunctional_relation] = set(
+                    self.rel2patterns[new_inversefunctional_relation]
+                ) | {"owl:InverseFunctional"}
+
         if property == "rdfs:subPropertyOf":
             self.prop2superprop = {}
             self.subproperties = []
             rels = self.relations[:]
             for r1 in rels:
                 for r2 in rels:
-                    if r1 != r2 and r1 not in self.prop2superprop and r2 not in self.prop2superprop and \
-                    self.rel2inverse.get(r1) != r2 and self.rel2inverse.get(r2) != r1 and \
-                    self.rel2patterns[r1] == self.rel2patterns[r2]:
-                        if r1 not in self.rel2dom and r1 not in self.rel2range and \
-                        r2 not in self.rel2dom and r1 not in self.rel2range:
+                    if (
+                        r1 != r2
+                        and r1 not in self.prop2superprop
+                        and r2 not in self.prop2superprop
+                        and self.rel2inverse.get(r1) != r2
+                        and self.rel2inverse.get(r2) != r1
+                        and self.rel2patterns[r1] == self.rel2patterns[r2]
+                    ):
+                        if (
+                            r1 not in self.rel2dom
+                            and r1 not in self.rel2range
+                            and r2 not in self.rel2dom
+                            and r1 not in self.rel2range
+                        ):
                             self.prop2superprop[r1] = r2
                             self.subproperties.append(r1)
                             break
-                        if r1 in self.rel2dom and r1 in self.rel2range and \
-                        r2 in self.rel2dom and r1 in self.rel2range:
+                        if r1 in self.rel2dom and r1 in self.rel2range and r2 in self.rel2dom and r1 in self.rel2range:
                             # 1
-                            if self.rel2dom.get(r1) == self.rel2dom.get(r2) and \
-                            self.rel2range.get(r1) == self.rel2range.get(r2):
+                            if self.rel2dom.get(r1) == self.rel2dom.get(r2) and self.rel2range.get(
+                                r1
+                            ) == self.rel2range.get(r2):
                                 self.prop2superprop[r1] = r2
                                 self.subproperties.append(r1)
                                 break
                             # 2
-                            elif self.rel2dom.get(r1) == self.rel2dom.get(r2) and \
-                            self.rel2range.get(r2) in self.class_info["transitive_class2superclasses"][self.rel2range.get(r1)]:
+                            elif (
+                                self.rel2dom.get(r1) == self.rel2dom.get(r2)
+                                and self.rel2range.get(r2)
+                                in self.class_info["transitive_class2superclasses"][self.rel2range.get(r1)]
+                            ):
                                 self.prop2superprop[r1] = r2
                                 self.subproperties.append(r1)
                                 break
-                            # 3  
-                            elif self.rel2range.get(r1) == self.rel2range.get(r2) and \
-                            self.rel2dom.get(r2) in self.class_info["transitive_class2superclasses"][self.rel2dom.get(r1)]:
+                            # 3
+                            elif (
+                                self.rel2range.get(r1) == self.rel2range.get(r2)
+                                and self.rel2dom.get(r2)
+                                in self.class_info["transitive_class2superclasses"][self.rel2dom.get(r1)]
+                            ):
                                 self.prop2superprop[r1] = r2
                                 self.subproperties.append(r1)
                                 break
-                            # 4 
-                            elif self.rel2dom.get(r2) in self.class_info["transitive_class2superclasses"][self.rel2dom.get(r1)] and \
-                            self.rel2range.get(r2) in self.class_info["transitive_class2superclasses"][self.rel2range.get(r1)]:
+                            # 4
+                            elif (
+                                self.rel2dom.get(r2)
+                                in self.class_info["transitive_class2superclasses"][self.rel2dom.get(r1)]
+                                and self.rel2range.get(r2)
+                                in self.class_info["transitive_class2superclasses"][self.rel2range.get(r1)]
+                            ):
                                 self.prop2superprop[r1] = r2
                                 self.subproperties.append(r1)
                                 break
 
                 if 2 * len(self.prop2superprop) >= self.prop_subproperties * self.num_relations:
                     return
-        
+
         if property == "owl:Symmetric":
             sample_size = int(len(self.relations) * self.prop_symmetric_relations)
             if sample_size > len(relation_pool):
@@ -550,19 +610,12 @@ class RelationGenerator:
         warning_msg = 0
 
         # first with relations without pattern
-        unpatterned_relations = [
-            r for r in self.relations if not self.rel2patterns[r]
-        ]
+        unpatterned_relations = [r for r in self.relations if not self.rel2patterns[r]]
         unpatterned_relations = (
-            unpatterned_relations[:-1]
-            if len(unpatterned_relations) % 2 == 1
-            else unpatterned_relations
+            unpatterned_relations[:-1] if len(unpatterned_relations) % 2 == 1 else unpatterned_relations
         )
 
-        while (
-            running_inverseof_prop < self.prop_inverse_relations
-            and len(unpatterned_relations) >= 2
-        ):
+        while running_inverseof_prop < self.prop_inverse_relations and len(unpatterned_relations) >= 2:
             first_rel = unpatterned_relations.pop()
             second_rel = unpatterned_relations.pop()
             self.pair_inverseof(first_rel, second_rel)
@@ -606,9 +659,7 @@ class RelationGenerator:
                 continue
 
         if warning_msg:
-            print(
-                "Proportion of inverse relations reduced due to incompatibilities with other properties."
-            )
+            print("Proportion of inverse relations reduced due to incompatibilities with other properties.")
 
     def pair_inverseof(self, rel, inv_rel):
         self.inverseof_relations.append(rel)
@@ -618,7 +669,7 @@ class RelationGenerator:
 
     def calculate_inverseof(self):
         return len(self.inverseof_relations) / len(self.relations)
-    
+
     def print_schema(self):
         """
         Print the relation schema.
@@ -633,20 +684,56 @@ class RelationGenerator:
         print("\n")
 
         table = [
-                    ["Number of Relations", len(self.relations), self.num_relations],
-                    ["SubProperty Proportion", round(2 * len(self.prop2superprop) / len(self.relations), 2), self.prop_subproperties],
-                    ["Reflexive Relations", round(len(self.reflexive_relations) / len(self.relations), 2), self.prop_reflexive_relations],
-                    ["Irreflexive Relations", round(len(self.irreflexive_relations) / len(self.relations), 2), self.prop_irreflexive_relations],
-                    ["Functional Relations", round(len(self.functional_relations) / len(self.relations), 2), self.prop_functional_relations],
-                    ["InverseFunctional Relations", round(len(self.inversefunctional_relations) / len(self.relations), 2), self.prop_inverse_functional_relations],
-                    ["Symmetric Relations", round(len(self.symmetric_relations) / len(self.relations), 2), self.prop_symmetric_relations],
-                    ["Asymmetric Relations", round(len(self.asymmetric_relations) / len(self.relations), 2), self.prop_asymmetric_relations],
-                    ["Transitive Relations", round(len(self.transitive_relations) / len(self.relations), 2), self.prop_transitive_relations],
-                    ["InverseOf Relations", round(len(self.inverseof_relations) / len(self.relations), 2), round(self.prop_inverse_relations, 2)],
-                    ["Profiled Relations", round(self.current_profile_ratio, 2), self.prop_profiled_relations],
-                    ["Relation Specificity", round(self.calculate_relation_specificity(), 2), self.relation_specificity]
-                ]       
-    
+            ["Number of Relations", len(self.relations), self.num_relations],
+            [
+                "SubProperty Proportion",
+                round(2 * len(self.prop2superprop) / len(self.relations), 2),
+                self.prop_subproperties,
+            ],
+            [
+                "Reflexive Relations",
+                round(len(self.reflexive_relations) / len(self.relations), 2),
+                self.prop_reflexive_relations,
+            ],
+            [
+                "Irreflexive Relations",
+                round(len(self.irreflexive_relations) / len(self.relations), 2),
+                self.prop_irreflexive_relations,
+            ],
+            [
+                "Functional Relations",
+                round(len(self.functional_relations) / len(self.relations), 2),
+                self.prop_functional_relations,
+            ],
+            [
+                "InverseFunctional Relations",
+                round(len(self.inversefunctional_relations) / len(self.relations), 2),
+                self.prop_inverse_functional_relations,
+            ],
+            [
+                "Symmetric Relations",
+                round(len(self.symmetric_relations) / len(self.relations), 2),
+                self.prop_symmetric_relations,
+            ],
+            [
+                "Asymmetric Relations",
+                round(len(self.asymmetric_relations) / len(self.relations), 2),
+                self.prop_asymmetric_relations,
+            ],
+            [
+                "Transitive Relations",
+                round(len(self.transitive_relations) / len(self.relations), 2),
+                self.prop_transitive_relations,
+            ],
+            [
+                "InverseOf Relations",
+                round(len(self.inverseof_relations) / len(self.relations), 2),
+                round(self.prop_inverse_relations, 2),
+            ],
+            ["Profiled Relations", round(self.current_profile_ratio, 2), self.prop_profiled_relations],
+            ["Relation Specificity", round(self.calculate_relation_specificity(), 2), self.relation_specificity],
+        ]
+
         headers = ["Relation Metric", "Value", "Specified Value"]
         table_str = tabulate(table, headers, tablefmt="pretty")
         print(table_str)

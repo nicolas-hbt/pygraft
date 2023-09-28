@@ -18,7 +18,7 @@ class ClassGenerator:
         Parameters:
             self (object): The instance of the ClassGenerator.
             kwargs (dict): Dictionary of parameter names and values.
-        
+
         Returns:
             None
         """
@@ -35,7 +35,7 @@ class ClassGenerator:
 
         Parameters:
             self (object): The instance of the ClassGenerator.
-        
+
         Returns:
             None
         """
@@ -49,12 +49,12 @@ class ClassGenerator:
     def generate_class_schema(self):
         """
         Generate the class schema.
-        
+
         If the `verbose` flag is set, the generated schema information is printed.
 
         Parameters:
             self (object): The instance of the ClassGenerator.
-        
+
         Returns:
             class_info (dict): A dictionary containing information about the generated class schema.
         """
@@ -67,7 +67,7 @@ class ClassGenerator:
         class_info = self.assemble_class_info()
 
         return class_info
-    
+
     def assemble_class_info(self):
         """
         Assembles and returns information about the current class schema.
@@ -75,7 +75,7 @@ class ClassGenerator:
         Parameters:
             self (object): The instance of the ClassGenerator.
 
-        Returns: 
+        Returns:
             class_info (dict): A dictionary containing various information about the class.
         """
         class_info = {
@@ -83,7 +83,9 @@ class ClassGenerator:
             "classes": self.classes,
             "hierarchy_depth": get_max_depth(self.layer2classes),
             "avg_class_depth": round(calculate_average_depth(self.layer2classes), 2),
-            "class_inheritance_ratio": round(calculate_inheritance_ratio(self.class2superclass_direct, self.class2subclasses_direct), 2),
+            "class_inheritance_ratio": round(
+                calculate_inheritance_ratio(self.class2superclass_direct, self.class2subclasses_direct), 2
+            ),
             "direct_class2subclasses": self.class2subclasses_direct,
             "direct_class2superclass": self.class2superclass_direct,
             "transitive_class2subclasses": self.class2subclasses_transitive,
@@ -127,20 +129,28 @@ class ClassGenerator:
             c = c2
 
         current_avg_depth = calculate_average_depth(self.layer2classes)
-        current_inheritance_ratio = calculate_inheritance_ratio(self.class2superclass_direct, self.class2subclasses_direct)
+        current_inheritance_ratio = calculate_inheritance_ratio(
+            self.class2superclass_direct, self.class2subclasses_direct
+        )
 
         stochastic_noise_until = int(len(unconnected_classes) * 0.5)
 
         while unconnected_classes:
             c = unconnected_classes.pop()
 
-            if random.random() < 0.35 and len(unconnected_classes) >= stochastic_noise_until and self.max_hierarchy_depth > 3:
+            if (
+                random.random() < 0.35
+                and len(unconnected_classes) >= stochastic_noise_until
+                and self.max_hierarchy_depth > 3
+            ):
                 self.noisy_placing(c, current_avg_depth, current_inheritance_ratio)
             else:
                 self.smart_placing(c, current_avg_depth, current_inheritance_ratio)
 
             current_avg_depth = calculate_average_depth(self.layer2classes)
-            current_inheritance_ratio = calculate_inheritance_ratio(self.class2superclass_direct, self.class2subclasses_direct)
+            current_inheritance_ratio = calculate_inheritance_ratio(
+                self.class2superclass_direct, self.class2subclasses_direct
+            )
 
     def smart_placing(self, c, current_avg_depth, current_inheritance_ratio):
         """
@@ -178,7 +188,7 @@ class ClassGenerator:
             c (str): The class to be placed in the hierarchy tree.
             current_avg_depth (float): The current average depth of the hierarchy tree.
             current_inheritance_ratio (float): The current inheritance ratio of the hierarchy tree.
-        
+
         Returns:
             None
         """
@@ -188,7 +198,7 @@ class ClassGenerator:
         focus_layers = [l for l in focus_layers if l not in [0, 1, self.max_hierarchy_depth - 1]]
 
         if focus_layers:
-            layer =  random.choice(focus_layers)
+            layer = random.choice(focus_layers)
             parent = random.choice(self.layer2classes[layer])
             self.link_child2parent(c, parent, layer=layer + 1)
         else:
@@ -204,23 +214,15 @@ class ClassGenerator:
         Args:
             self (object): The instance of the ClassGenerator.
             c (str): The class to be placed.
-    
+
         Returns:
             None
         """
-        deep_layers = [
-            key - 1
-            for key, value in self.layer2classes.items()
-            if value and key >= self.avg_class_depth
-        ]
+        deep_layers = [key - 1 for key, value in self.layer2classes.items() if value and key >= self.avg_class_depth]
         layer = random.choice(deep_layers)
 
         while True:
-            current_parents = [
-                c
-                for c in self.layer2classes[layer]
-                if c in self.class2subclasses_direct.keys()
-            ]
+            current_parents = [c for c in self.layer2classes[layer] if c in self.class2subclasses_direct.keys()]
 
             if current_parents:
                 parent = random.choice(current_parents)
@@ -239,13 +241,13 @@ class ClassGenerator:
         Args:
             self (object): The instance of the ClassGenerator.
             c (str): The class to be placed.
-    
+
         Returns:
             None
         """
         found = False
         layer = max((key for key, value in self.layer2classes.items() if value), default=None) - 1
-        
+
         while not found:
             current_parents = [c for c in self.layer2classes[layer] if c in self.class2subclasses_direct.keys()]
 
@@ -266,7 +268,7 @@ class ClassGenerator:
         Args:
             self (object): The instance of the ClassGenerator.
             c (str): The class to be placed.
-    
+
         Returns:
             None
         """
@@ -294,7 +296,7 @@ class ClassGenerator:
         Args:
             self (object): The instance of the ClassGenerator.
             c (str): The class to be placed.
-    
+
         Returns:
             None
         """
@@ -344,7 +346,7 @@ class ClassGenerator:
         Generates class disjointness by randomly selecting two classes and making them incompatible.
         Updates the class mappings and extends the incompatibilities to subclasses.
         Calculates the current class disjointness and stops when it reaches the average disjointness threshold.
-        
+
         Args:
             self (object): The instance of the ClassGenerator.
 
@@ -383,7 +385,7 @@ class ClassGenerator:
             self.extend_incompatibilities(A, B)
             # update current class disjointness
             current_class_disjointness = calculate_class_disjointness(self.disjointwith, self.num_classes)
-    
+
     def extend_incompatibilities(self, class_A, class_B):
         """
         Extends the incompatibilities between two classes.
@@ -405,15 +407,19 @@ class ClassGenerator:
             for child_B in children_B:
                 self.disjointwith_extended.setdefault(child_A, []).append(child_B)
                 self.disjointwith_extended.setdefault(child_B, []).append(child_A)
-                mutual_disj_key = f"{child_A}-{child_B}" if int(child_A[1:]) < int(child_B[1:]) else f"{child_B}-{child_A}"
+                mutual_disj_key = (
+                    f"{child_A}-{child_B}" if int(child_A[1:]) < int(child_B[1:]) else f"{child_B}-{child_A}"
+                )
                 self.mutual_disjointness.add(mutual_disj_key)
-        
+
         # Handle the case where class A has no children
         if not children_A:
             for child_B in children_B:
                 self.disjointwith_extended.setdefault(class_A, []).append(child_B)
                 self.disjointwith_extended.setdefault(child_B, []).append(class_A)
-                mutual_disj_key = f"{class_A}-{child_B}" if int(class_A[1:]) < int(child_B[1:]) else f"{child_B}-{class_A}"
+                mutual_disj_key = (
+                    f"{class_A}-{child_B}" if int(class_A[1:]) < int(child_B[1:]) else f"{child_B}-{class_A}"
+                )
                 self.mutual_disjointness.add(mutual_disj_key)
 
         # Handle the case where class B has no children
@@ -421,14 +427,16 @@ class ClassGenerator:
             for child_A in children_A:
                 self.disjointwith_extended.setdefault(child_A, []).append(class_B)
                 self.disjointwith_extended.setdefault(class_B, []).append(child_A)
-                mutual_disj_key = f"{class_B}-{child_A}" if int(class_B[1:]) < int(child_A[1:]) else f"{child_A}-{class_B}"
+                mutual_disj_key = (
+                    f"{class_B}-{child_A}" if int(class_B[1:]) < int(child_A[1:]) else f"{child_A}-{class_B}"
+                )
                 self.mutual_disjointness.add(mutual_disj_key)
 
     def link_child2parent(self, child, parent, layer):
         self.class2subclasses_direct[parent] = [child]
         self.class2superclass_direct[child] = parent
         self.layer2classes[layer].append(child)
-    
+
     def print_schema(self):
         """
         Print the generated class schema.
@@ -449,10 +457,18 @@ class ClassGenerator:
             ["Number of Classes", len(self.classes), self.num_classes],
             ["Maximum Hierarchy Depth", get_max_depth(self.layer2classes), self.max_hierarchy_depth],
             ["Average Class Depth", round(calculate_average_depth(self.layer2classes), 2), self.avg_class_depth],
-            ["Class Inheritance Ratio", round(calculate_inheritance_ratio(self.class2superclass_direct, self.class2subclasses_direct), 2), self.class_inheritance_ratio],
-            ["Average Disjointness", round(calculate_class_disjointness(self.disjointwith, len(self.classes)), 2), self.avg_disjointness]
-        ]       
-    
+            [
+                "Class Inheritance Ratio",
+                round(calculate_inheritance_ratio(self.class2superclass_direct, self.class2subclasses_direct), 2),
+                self.class_inheritance_ratio,
+            ],
+            [
+                "Average Disjointness",
+                round(calculate_class_disjointness(self.disjointwith, len(self.classes)), 2),
+                self.avg_disjointness,
+            ],
+        ]
+
         headers = ["Class Metric", "Value", "Specified Value"]
         table_str = tabulate(table, headers, tablefmt="pretty")
         print(table_str)

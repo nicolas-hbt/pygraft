@@ -1,4 +1,5 @@
 import warnings
+
 warnings.filterwarnings("ignore")
 
 import json
@@ -25,14 +26,14 @@ class SchemaBuilder:
         Parameters:
             self: The instance of the SchemaBuilder.
             folder_name (str): The name of the folder to be created. If None, a folder with the current date and time will be created.
-        
+
         Returns:
             None
         """
         output_folder = "output/"
         if folder_name is None:
             output_folder += datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        else :
+        else:
             output_folder += folder_name
 
         self.directory = f"{output_folder}/"
@@ -41,7 +42,7 @@ class SchemaBuilder:
 
     def save_dict(self):
         """
-    	Saves the dictionary containing relation information and class information to JSON files.
+        Saves the dictionary containing relation information and class information to JSON files.
 
         Parameters:
             self: The instance of the SchemaBuilder.
@@ -103,7 +104,9 @@ class SchemaBuilder:
 
         print(f"\nSchema created.")
 
-        ontology_file = f"{self.directory}schema.rdf" if self.format == "xml" else f"{self.directory}schema.{self.format}"
+        ontology_file = (
+            f"{self.directory}schema.rdf" if self.format == "xml" else f"{self.directory}schema.{self.format}"
+        )
         reasoner(resource_file=ontology_file, resource="schema")
 
     def add_classes(self):
@@ -112,7 +115,7 @@ class SchemaBuilder:
 
         Parameters:
             self: The instance of the SchemaBuilder.
-        
+
         Returns:
             None
         """
@@ -137,7 +140,7 @@ class SchemaBuilder:
                 for c2 in class2disjoints[c]:
                     self.graph.add((class_URI, OWL.disjointWith, URIRef(self.schema + str(c2))))
 
-        print("\n")   
+        print("\n")
 
     def add_relations(self):
         """
@@ -154,7 +157,7 @@ class SchemaBuilder:
 
         Parameters:
             self: The instance of the SchemaBuilder.
-        
+
         Returns:
             None
         """
@@ -165,9 +168,7 @@ class SchemaBuilder:
         rel2inverse = self.relation_info["rel2inverse"]
         rel2superrel = self.relation_info["rel2superrel"]
 
-        for r in tqdm(
-            relations, desc="Writing relations", unit="relations", colour="red"
-        ):
+        for r in tqdm(relations, desc="Writing relations", unit="relations", colour="red"):
             relation_URI = URIRef(self.schema + str(r))
 
             # rdf:type
@@ -184,38 +185,24 @@ class SchemaBuilder:
                             if rel2dom[r] == rel2range[r]:
                                 continue
                             else:
-                                self.graph.add(
-                                    (relation_URI, RDF.type, OWL.ReflexiveProperty)
-                                )
+                                self.graph.add((relation_URI, RDF.type, OWL.ReflexiveProperty))
                         else:
-                            self.graph.add(
-                                (relation_URI, RDF.type, OWL.ReflexiveProperty)
-                            )
+                            self.graph.add((relation_URI, RDF.type, OWL.ReflexiveProperty))
                     if object_property == "owl:Irreflexive":
-                        self.graph.add(
-                            (relation_URI, RDF.type, OWL.IrreflexiveProperty)
-                        )
+                        self.graph.add((relation_URI, RDF.type, OWL.IrreflexiveProperty))
                     if object_property == "owl:Transitive":
                         self.graph.add((relation_URI, RDF.type, OWL.TransitiveProperty))
                     if object_property == "owl:Functional":
                         self.graph.add((relation_URI, RDF.type, OWL.FunctionalProperty))
                     if object_property == "owl:InverseFunctional":
-                        self.graph.add(
-                            (relation_URI, RDF.type, OWL.InverseFunctionalProperty)
-                        )
+                        self.graph.add((relation_URI, RDF.type, OWL.InverseFunctionalProperty))
 
-            if (
-                r in rel2dom
-                and "owl:Reflexive" not in rel2patterns[r]
-            ):
+            if r in rel2dom and "owl:Reflexive" not in rel2patterns[r]:
                 # https://oborel.github.io/obo-relations/reflexivity/: "Reflexivity is incompatible with domain and range assertions."
                 domain_URI = URIRef(self.schema + str(rel2dom[r]))
                 self.graph.add((relation_URI, RDFS.domain, domain_URI))
 
-            if (
-                r in rel2range
-                and "owl:Reflexive" not in rel2patterns[r]
-            ):
+            if r in rel2range and "owl:Reflexive" not in rel2patterns[r]:
                 # https://oborel.github.io/obo-relations/reflexivity/: "Reflexivity is incompatible with domain and range assertions."
                 range_URI = URIRef(self.schema + str(rel2range[r]))
                 self.graph.add((relation_URI, RDFS.range, range_URI))
@@ -230,24 +217,22 @@ class SchemaBuilder:
 
         print("\n")
 
-        output_file = (
-            f"{self.directory}schema.rdf"
-            if self.format == "xml"
-            else f"{self.directory}schema.{self.format}"
-        )
+        output_file = f"{self.directory}schema.rdf" if self.format == "xml" else f"{self.directory}schema.{self.format}"
         self.graph.serialize(output_file, format=self.format)
 
     def test_schema(self):
         """
         Test the schema by loading the ontology file and running a reasoner.
-        
+
         Parameters:
             self: The instance of the SchemaBuilder.
-        
+
         Returns:
             None
         """
-        ontology_file = f"{self.directory}schema.rdf" if self.format == "xml" else f"{self.directory}schema.{self.format}"
+        ontology_file = (
+            f"{self.directory}schema.rdf" if self.format == "xml" else f"{self.directory}schema.{self.format}"
+        )
         ontology = get_ontology(ontology_file)
 
         try:

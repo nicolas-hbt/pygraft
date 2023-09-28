@@ -6,5 +6,5 @@ __all__ = [
     "create_yaml_template",
     "generate_schema",
     "generate_kg",
-    "generate"
+    "generate",
 ]

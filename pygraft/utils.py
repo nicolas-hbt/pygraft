@@ -8,16 +8,17 @@ import os
 import yaml
 from datetime import datetime
 import pkg_resources
-import subprocess
 import shutil
 
 font_styles = ["dancingfont", "rounded", "varsity", "wetletter", "chunky"]
 
+
 def print_ascii_header():
-      header = text2art("PyGraft", font=random.choice(font_styles))
-      print("\n")
-      print(header)
-      print("\n")
+    header = text2art("PyGraft", font=random.choice(font_styles))
+    print("\n")
+    print(header)
+    print("\n")
+
 
 def initialize_folder(folder_name):
     """
@@ -26,21 +27,22 @@ def initialize_folder(folder_name):
     Parameters:
         self: The instance of the SchemaBuilder.
         folder_name (str): The name of the folder to be created. If None, a folder with the current date and time will be created.
-    
+
     Returns:
         None
     """
     output_folder = "output/"
     if folder_name is None or folder_name == "None":
         folder_name = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        
+
     output_folder += folder_name
 
     directory = f"{output_folder}/"
     if not os.path.exists(directory):
         os.makedirs(directory)
-    
+
     return folder_name
+
 
 def load_config(path):
     """Load a configuration from a JSON or YAML file."""
@@ -55,6 +57,7 @@ def load_config(path):
             return yaml.safe_load(file)
 
     raise ValueError(f"Unknown configuration file format: {path.suffix}. Valid formats: .json, .yaml, .yml")
+
 
 def get_most_recent_subfolder(folder_path):
     """
@@ -72,6 +75,7 @@ def get_most_recent_subfolder(folder_path):
     most_recent_subfolder = max(subfolders, key=os.path.getctime)
 
     return os.path.basename(most_recent_subfolder)
+
 
 def check_schema_arguments(config):
     """
@@ -101,16 +105,10 @@ def check_schema_arguments(config):
 
     assert (
         config["prop_subproperties"] == 0.0
-        and (
-            config["prop_functional_relations"] >= 0.0
-            or config["prop_inverse_functional_relations"] >= 0.0
-        )
+        and (config["prop_functional_relations"] >= 0.0 or config["prop_inverse_functional_relations"] >= 0.0)
     ) or (
         config["prop_subproperties"] >= 0.0
-        and (
-            config["prop_functional_relations"] == 0.0
-            or config["prop_inverse_functional_relations"] == 0.0
-        )
+        and (config["prop_functional_relations"] == 0.0 or config["prop_inverse_functional_relations"] == 0.0)
     ), """
     The current PyGraft version does not handle rdfs:subPropertyOf, owl:FunctionalProperty, and owl:InverseFunctionalProperty **at the same time**.
     Retry choosing either:
@@ -119,20 +117,25 @@ def check_schema_arguments(config):
     """
 
     # Add a check to eventually adjust -md if necessary (based on -adc and -ci):
-    
+
+
 def check_kg_arguments(config):
     if config["multityping"] == False:
         config["avg_multityping"] = 1.0
 
+
 def reasoner(resource_file=None, infer_property_values=False, debug=False, keep_tmp_file=False, resource="schema"):
     graph = get_ontology(resource_file).load()
     try:
-        sync_reasoner_hermit(graph, infer_property_values=infer_property_values, debug=debug, keep_tmp_file=keep_tmp_file)
+        sync_reasoner_hermit(
+            graph, infer_property_values=infer_property_values, debug=debug, keep_tmp_file=keep_tmp_file
+        )
         print(f"\nConsistent {resource}.\n")
         graph.destroy()
     except OwlReadyInconsistentOntologyError:
         print(f"\nInconsistent {resource}.\n")
         graph.destroy()
+
 
 def save_dict_to_text(data_dict, file_path):
     with open(file_path, "w") as file:
@@ -143,24 +146,29 @@ def save_dict_to_text(data_dict, file_path):
             else:
                 file.write(str(k) + "\t" + str(v) + "\n")
 
+
 def save_dict_to_pickle(data_dict, file_path):
     with open(file_path, "wb") as file:
         pickle.dump(data_dict, file)
+
 
 def save_set_uris_to_text(set_uris, file_path):
     with open(file_path, "w") as file:
         for t in set_uris:
             file.write(f"""<{t[0]}> <{t[1]}> <{t[2]}> .\n""")
 
+
 def save_set_ids_to_text(set_ids, file_path):
     with open(file_path, "w") as file:
         for t in set_ids:
             file.write(f"""{t[0]}\t{t[1]}\t{t[2]}\n""")
 
+
 def load_json(file_path):
     path = pathlib.Path(file_path)
     with path.open() as file:
         return json.load(file)
+
 
 def load_json_template():
     json_file_path = pkg_resources.resource_filename("pygraft", "examples/template.json")
@@ -168,6 +176,7 @@ def load_json_template():
     # Use the 'cp' command to copy the file
     # subprocess.run(["cp", json_file_path, destination_directory])
     shutil.copy(json_file_path, destination_directory)
+
 
 def load_yaml_template():
     yaml_file_path = pkg_resources.resource_filename("pygraft", "examples/template.yml")

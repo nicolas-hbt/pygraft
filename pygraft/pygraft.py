@@ -1,23 +1,37 @@
 from .schema_constructor import SchemaBuilder
-from .utils import get_most_recent_subfolder, load_config, initialize_folder, check_schema_arguments, check_kg_arguments, print_ascii_header, load_json_template, load_yaml_template
+from .utils import (
+    get_most_recent_subfolder,
+    load_config,
+    initialize_folder,
+    check_schema_arguments,
+    check_kg_arguments,
+    print_ascii_header,
+    load_json_template,
+    load_yaml_template,
+)
 from .class_generator import ClassGenerator
 from .relation_generator import RelationGenerator
 from .kg_generator import InstanceGenerator
 
-def create_template(extension="yml"):
 
+def create_template(extension="yml"):
     if extension == "json":
         load_json_template()
     elif extension in {"yaml", "yml"}:
         load_yaml_template()
     else:
-        raise ValueError(f"Unknown extension file format: {extension}. Please enter one of the following: json, yaml, yml")
+        raise ValueError(
+            f"Unknown extension file format: {extension}. Please enter one of the following: json, yaml, yml"
+        )
+
 
 def create_json_template():
     load_json_template()
 
+
 def create_yaml_template():
     load_yaml_template()
+
 
 def generate_schema(path):
     config = load_config(path)
@@ -27,13 +41,13 @@ def generate_schema(path):
     print_ascii_header()
 
     class_generator = ClassGenerator(
-            num_classes=config["num_classes"],
-            max_hierarchy_depth=config["max_hierarchy_depth"],
-            avg_class_depth=config["avg_class_depth"],
-            class_inheritance_ratio=config["class_inheritance_ratio"],
-            avg_disjointness=config["avg_disjointness"],
-            verbose=config["verbose"],
-        )
+        num_classes=config["num_classes"],
+        max_hierarchy_depth=config["max_hierarchy_depth"],
+        avg_class_depth=config["avg_class_depth"],
+        class_inheritance_ratio=config["class_inheritance_ratio"],
+        avg_disjointness=config["avg_disjointness"],
+        verbose=config["verbose"],
+    )
     class_info = class_generator.generate_class_schema()
 
     relation_generator = RelationGenerator(
@@ -51,14 +65,13 @@ def generate_schema(path):
         prop_irreflexive_relations=config["prop_irreflexive_relations"],
         prop_asymmetric_relations=config["prop_asymmetric_relations"],
         prop_inverse_functional_relations=config["prop_inverse_functional_relations"],
-        verbose=config["verbose"]
+        verbose=config["verbose"],
     )
     relation_info = relation_generator.generate_relation_schema()
 
-    schema_builder = SchemaBuilder(
-        class_info, relation_info, config["schema_name"], config["format"]
-    )
+    schema_builder = SchemaBuilder(class_info, relation_info, config["schema_name"], config["format"])
     schema_builder.building_pipeline()
+
 
 def generate_kg(path):
     config = load_config(path)
@@ -80,11 +93,11 @@ def generate_kg(path):
         avg_depth_specific_class=config["avg_depth_specific_class"],
         multityping=config["multityping"],
         avg_multityping=config["avg_multityping"],
-        format=config["format"]
+        format=config["format"],
     )
     instance_generator.generate_kg()
 
-    
+
 def generate(path):
     config = load_config(path)
     check_schema_arguments(config)
@@ -94,13 +107,13 @@ def generate(path):
     print_ascii_header()
 
     class_generator = ClassGenerator(
-            num_classes=config["num_classes"],
-            max_hierarchy_depth=config["max_hierarchy_depth"],
-            avg_class_depth=config["avg_class_depth"],
-            class_inheritance_ratio=config["class_inheritance_ratio"],
-            avg_disjointness=config["avg_disjointness"],
-            verbose=config["verbose"],
-        )
+        num_classes=config["num_classes"],
+        max_hierarchy_depth=config["max_hierarchy_depth"],
+        avg_class_depth=config["avg_class_depth"],
+        class_inheritance_ratio=config["class_inheritance_ratio"],
+        avg_disjointness=config["avg_disjointness"],
+        verbose=config["verbose"],
+    )
     class_info = class_generator.generate_class_schema()
 
     relation_generator = RelationGenerator(
@@ -118,13 +131,11 @@ def generate(path):
         prop_irreflexive_relations=config["prop_irreflexive_relations"],
         prop_asymmetric_relations=config["prop_asymmetric_relations"],
         prop_inverse_functional_relations=config["prop_inverse_functional_relations"],
-        verbose=config["verbose"]
+        verbose=config["verbose"],
     )
     relation_info = relation_generator.generate_relation_schema()
 
-    schema_builder = SchemaBuilder(
-        class_info, relation_info, config["schema_name"], config["format"]
-    )
+    schema_builder = SchemaBuilder(class_info, relation_info, config["schema_name"], config["format"])
     schema_builder.building_pipeline()
 
     instance_generator = InstanceGenerator(
@@ -138,6 +149,6 @@ def generate(path):
         avg_depth_specific_class=config["avg_depth_specific_class"],
         multityping=config["multityping"],
         avg_multityping=config["avg_multityping"],
-        format=config["format"]
+        format=config["format"],
     )
     instance_generator.generate_kg()
