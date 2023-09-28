@@ -9,17 +9,61 @@ from tabulate import tabulate
 
 class RelationGenerator:
     def __init__(self, **kwargs):
+        """
+        Initializes the RelationGenerator.
+
+        Args:
+            self (object): The instance of the RelationGenerator.
+            **kwargs: Additional keyword arguments.
+
+        Keyword Args:
+            class_info (dict): A dictionary containing information about the classes.
+            num_relations (int): The number of relations to generate.
+            relation_specificity (float): The desired specificity of the relations.
+            prop_profiled_relations (float): The desired proportion of profiled relations.
+            profile_side (str): The side to profile relations on.
+            verbose (bool): Whether to print the relation schema.
+            prop_symmetric_relations (float): The desired proportion of symmetric relations.
+            prop_inverse_relations (float): The desired proportion of inverse relations.
+            prop_functional_relations (float): The desired proportion of functional relations.
+            prop_inverse_functional_relations (float): The desired proportion of inverse functional relations.
+            prop_transitive_relations (float): The desired proportion of transitive relations.
+            prop_subproperties (float): The desired proportion of subproperties.
+            prop_reflexive_relations (float): The desired proportion of reflexive relations.
+            prop_irreflexive_relations (float): The desired proportion of irreflexive relations.
+            prop_asymmetric_relations (float): The desired proportion of asymmetric relations.
+
+        Returns:
+            None
+        """
         self.init_params(**kwargs)
         self.get_one_rel_compatibilities()
         self.get_inverseof_compatibilities()
 
     def init_params(self, **kwargs):
         """
-        Initialize general relation information with user-specified parameters.
+        Initializes general relation information with user-specified parameters.
 
-        Parameters:
+        Args:
             self (object): The instance of the RelationGenerator.
-            kwargs (dict): Dictionary of parameter names and values.
+            **kwargs: Additional keyword arguments.
+
+        Keyword Args:
+            class_info (dict): A dictionary containing information about the classes.
+            num_relations (int): The number of relations to generate.
+            relation_specificity (float): The desired specificity of the relations.
+            prop_profiled_relations (float): The desired proportion of profiled relations.
+            profile_side (str): The side to profile relations on.
+            verbose (bool): Whether to print the relation schema.
+            prop_symmetric_relations (float): The desired proportion of symmetric relations.
+            prop_inverse_relations (float): The desired proportion of inverse relations.
+            prop_functional_relations (float): The desired proportion of functional relations.
+            prop_inverse_functional_relations (float): The desired proportion of inverse functional relations.
+            prop_transitive_relations (float): The desired proportion of transitive relations.
+            prop_subproperties (float): The desired proportion of subproperties.
+            prop_reflexive_relations (float): The desired proportion of reflexive relations.
+            prop_irreflexive_relations (float): The desired proportion of irreflexive relations.
+            prop_asymmetric_relations (float): The desired proportion of asymmetric relations.
 
         Returns:
             None
@@ -34,11 +78,28 @@ class RelationGenerator:
 
     def init_property_props(self, **kwargs):
         """
-        Initialize proportions of relation properties with user-specified parameters.
+        Initializes proportions of relation properties with user-specified parameters.
 
-        Parameters:
+        Args:
             self (object): The instance of the RelationGenerator.
-            kwargs (dict): Dictionary of parameter names and values.
+            **kwargs: Additional keyword arguments.
+
+        Keyword Args:
+            class_info (dict): A dictionary containing information about the classes.
+            num_relations (int): The number of relations to generate.
+            relation_specificity (float): The desired specificity of the relations.
+            prop_profiled_relations (float): The desired proportion of profiled relations.
+            profile_side (str): The side to profile relations on.
+            verbose (bool): Whether to print the relation schema.
+            prop_symmetric_relations (float): The desired proportion of symmetric relations.
+            prop_inverse_relations (float): The desired proportion of inverse relations.
+            prop_functional_relations (float): The desired proportion of functional relations.
+            prop_inverse_functional_relations (float): The desired proportion of inverse functional relations.
+            prop_transitive_relations (float): The desired proportion of transitive relations.
+            prop_subproperties (float): The desired proportion of subproperties.
+            prop_reflexive_relations (float): The desired proportion of reflexive relations.
+            prop_irreflexive_relations (float): The desired proportion of irreflexive relations.
+            prop_asymmetric_relations (float): The desired proportion of asymmetric relations. 
 
         Returns:
             None
@@ -55,9 +116,9 @@ class RelationGenerator:
 
     def generate_relation_schema(self):
         """
-        Generate the relation schema.
+        Generates the relation schema.
 
-        Parameters:
+        Args:
             self (object): The instance of the RelationGenerator.
 
         Returns:
@@ -76,7 +137,7 @@ class RelationGenerator:
         """
         Assembles and returns information about the relations.
 
-        Parameters:
+        Args:
             self (object): The instance of the RelationGenerator.
 
         Returns:
@@ -134,7 +195,7 @@ class RelationGenerator:
         """
         Generates relations and adds various properties to them.
 
-        Parameters:
+        Args:
             self (object): The instance of the RelationGenerator.
 
         Returns:
@@ -191,9 +252,9 @@ class RelationGenerator:
 
     def calculate_profile_ratio(self):
         """
-        Calculate the profile ratio.
+        Calculates the profile ratio.
 
-        Parameters:
+        Args:
             self (object): The instance of the RelationGenerator.
 
         Returns:
@@ -205,7 +266,7 @@ class RelationGenerator:
         """
         Adds one relation profile based on the value of `profile_side`.
 
-        Parameters:
+        Args:
             self (object): The instance of the RelationGenerator.
 
         Returns:
@@ -218,7 +279,7 @@ class RelationGenerator:
 
     def add_partial_relation_profile(self):
         """
-        Generate a partial relation profile by assigning a domain/range to a relation.
+        Generates a partial relation profile by assigning a domain/range to a relation.
         This function selects a relation (either from the "domain" or "range" category)
         that has not been profiled yet and assigns a randomly sampled class to it. The
         function also updates the relation-specificity based on the chosen class. If the
@@ -227,7 +288,7 @@ class RelationGenerator:
         relation has an inverse relation, the function assigns the inverse relation the
         same class as the selected relation, as long as it is not reflexive.
 
-        Parameters:
+        Args:
             self (object): The instance of the RelationGenerator.
 
         Returns:
@@ -287,9 +348,9 @@ class RelationGenerator:
 
     def add_complete_relation_profile(self):
         """
-        Generate a complete relation profile by assigning a domain and a range to a relation.
+        Generates a complete relation profile by assigning a domain and a range to a relation.
 
-        Parameters:
+        Args:
             self (object): The instance of the RelationGenerator.
 
         Returns:
@@ -320,9 +381,9 @@ class RelationGenerator:
 
     def calculate_relation_specificity(self):
         """
-        Calculate the specificity of relations.
+        Calculates the specificity of relations.
 
-        Parameters:
+        Args:
             self (object): The instance of the RelationGenerator.
 
         Returns:
@@ -340,12 +401,12 @@ class RelationGenerator:
         and returns a random class from a list of filtered classes
         such that the current relative specificity value converges towards user-specified value.
 
-        Parameters:
+        Args:
             self (object): The instance of the RelationGenerator.
             current_rel_specificity (float): The current relative specificity value.
 
         Returns:
-            str: A randomly chosen class from the list of filtered classes.
+            str: A random class from a list of filtered classes.
         """
         potential_classes = self.filter_classes(current_rel_specificity)
 
@@ -353,9 +414,9 @@ class RelationGenerator:
 
     def sample_class_constrained(self, current_rel_specificity, other_class):
         """
-        Return a compatible class based on the current relational specificity and other class.
+        Returns a compatible class based on the current relational specificity and other class.
 
-        Parameters:
+        Args:
             self (object): The instance of the RelationGenerator.
             current_rel_specificity (float): The current relational specificity.
             other_class (str): The other class.
@@ -372,6 +433,16 @@ class RelationGenerator:
         return random.choice(compatible_classes)
 
     def filter_classes(self, current_rel_specificity):
+        """
+        Filters classes based on the current relational specificity.
+
+        Args:
+            self (object): The instance of the RelationGenerator.
+            current_rel_specificity (float): The current relational specificity.
+
+        Returns:
+            list: A list of filtered classes.
+        """
         if current_rel_specificity < self.relation_specificity:
             filtered_classes = [
                 cl for layer, cl in self.layer2classes.items() if layer > int(self.relation_specificity)
@@ -392,6 +463,15 @@ class RelationGenerator:
         return list(itertools.chain.from_iterable(filtered_classes))
 
     def get_one_rel_compatibilities(self):
+        """
+        Gets all valid combinations of relation properties.
+
+        Args:
+            self (object): The instance of the RelationGenerator.
+
+        Returns:
+            None
+        """
         file_path = pkg_resources.resource_filename("pygraft", "property_checks/combinations.json")
 
         with open(file_path, "r") as file:
@@ -401,6 +481,15 @@ class RelationGenerator:
         self.one_rel_compatibilities = [op.split(",") for op in compatibilities]
 
     def get_inverseof_compatibilities(self):
+        """
+        Gets all valid combinations of inverse relations.
+
+        Args:
+            self (object): The instance of the RelationGenerator.
+        
+        Returns:
+            None
+        """
         self.compat_inverseof = {}
         file_path = pkg_resources.resource_filename("pygraft", "property_checks/compat_p1p2_inverseof.txt")
 
@@ -420,9 +509,9 @@ class RelationGenerator:
 
     def update_rel2patterns(self, property):
         """
-        Update the self.rel2patterns dictionary based on the given property.
+        Updates self.rel2patterns dictionary based on the given property.
 
-        Parameters:
+        Args:
             self (object): The instance of the RelationGenerator.
             property (str): The property to add to the self.rel2patterns dictionary.
 
@@ -446,14 +535,23 @@ class RelationGenerator:
         self.update_pattern2rels()
 
     def update_pattern2rels(self):
+        """
+        Updates self.pattern2rels dictionary.
+
+        Args:
+            self (object): The instance of the RelationGenerator.
+
+        Returns:
+            None
+        """
         self.pattern2rels = defaultdict(set)
         _ = [self.pattern2rels[frozenset(value)].add(key) for key, value in self.rel2patterns.items()]
 
     def add_property(self, property):
         """
-        Add properties to relations.
+        Adds properties to relations.
 
-        Parameters:
+        Args:
             self (object): The instance of the RelationGenerator.
             property (str): The property to add.
 
@@ -598,7 +696,7 @@ class RelationGenerator:
         """
         Determines and adds inverse relations based on observed patterns and compatibility.
 
-        Parameters:
+        Args:
             self (object): The instance of the RelationGenerator.
 
         Returns:
@@ -662,20 +760,40 @@ class RelationGenerator:
             print("Proportion of inverse relations reduced due to incompatibilities with other properties.")
 
     def pair_inverseof(self, rel, inv_rel):
+        """
+        Pairs relations as inverse relations.
+
+        Args:
+            self (object): The instance of the RelationGenerator.
+            rel (str): The first relation.
+            inv_rel (str): The second relation.
+
+        Returns:
+            None
+        """
         self.inverseof_relations.append(rel)
         self.inverseof_relations.append(inv_rel)
         self.rel2inverse[rel] = inv_rel
         self.rel2inverse[inv_rel] = rel
 
     def calculate_inverseof(self):
+        """
+        Calculates the proportion of inverse relations.
+
+        Args:
+            self (object): The instance of the RelationGenerator.
+
+        Returns:
+            float: The proportion of inverse relations.
+        """
         return len(self.inverseof_relations) / len(self.relations)
 
     def print_schema(self):
         """
-        Print the relation schema.
-        Displays various metrics and values related to the relations.
+        Prints the relation schema and
+        displays various metrics and values related to the relations.
 
-        Parameters:
+        Args:
             self (object): The instance of the RelationGenerator.
 
         Returns:

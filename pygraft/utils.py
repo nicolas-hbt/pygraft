@@ -14,6 +14,9 @@ font_styles = ["dancingfont", "rounded", "varsity", "wetletter", "chunky"]
 
 
 def print_ascii_header():
+    """
+    
+    """
     header = text2art("PyGraft", font=random.choice(font_styles))
     print("\n")
     print(header)
@@ -24,8 +27,8 @@ def initialize_folder(folder_name):
     """
     Initializes a folder for output files.
 
-    Parameters:
-        self: The instance of the SchemaBuilder.
+    Args:
+        self (object): The instance of the SchemaBuilder.
         folder_name (str): The name of the folder to be created. If None, a folder with the current date and time will be created.
 
     Returns:
@@ -45,7 +48,18 @@ def initialize_folder(folder_name):
 
 
 def load_config(path):
-    """Load a configuration from a JSON or YAML file."""
+    """
+    Loads a configuration from a JSON or YAML file.
+    
+    Args:
+        path (str): The path to the configuration file.
+
+    Raises:
+        ValueError: If the configuration file format is not supported.
+        
+    Returns:
+        dict: The configuration dictionary.
+    """
     path = pathlib.Path(path)
 
     if path.suffix == ".json":
@@ -61,9 +75,9 @@ def load_config(path):
 
 def get_most_recent_subfolder(folder_path):
     """
-    Get the most recent subfolder in the given folder path.
+    Gets the most recent subfolder in the given folder path.
 
-    Parameters:
+    Args:
         folder_path (str): The path to the folder.
 
     Returns:
@@ -82,7 +96,7 @@ def check_schema_arguments(config):
     Checks the validity of the schema arguments.
 
     Args:
-        args: The object containing the schema arguments.
+        config (dict): The configuration dictionary.
 
     Raises:
         AssertionError: If the proportions of owl:Asymmetric and owl:Symmetric relations sum to more than 1,
@@ -116,15 +130,35 @@ def check_schema_arguments(config):
     (2) -psub value3  -pfr 0.0     -pifr 0.0
     """
 
-    # Add a check to eventually adjust -md if necessary (based on -adc and -ci):
-
 
 def check_kg_arguments(config):
+    """
+    Checks the validity of the knowledge graph arguments.
+
+    Args:
+        config (dict): The configuration dictionary.
+    
+    Returns:
+        None
+    """
     if config["multityping"] == False:
         config["avg_multityping"] = 1.0
 
 
 def reasoner(resource_file=None, infer_property_values=False, debug=False, keep_tmp_file=False, resource="schema"):
+    """
+    Runs the HermiT reasoner on the given OWL file.
+
+    Args:
+        resource_file (str): The path to the OWL file.
+        infer_property_values (bool): Whether to infer property values.
+        debug (bool): Whether to print the debug information.
+        keep_tmp_file (bool): Whether to keep the temporary file.
+        resource (str): The name of the resource.
+
+    Returns:
+        None
+    """
     graph = get_ontology(resource_file).load()
     try:
         sync_reasoner_hermit(
@@ -138,6 +172,16 @@ def reasoner(resource_file=None, infer_property_values=False, debug=False, keep_
 
 
 def save_dict_to_text(data_dict, file_path):
+    """
+    Saves a dictionary to a text file.
+    
+    Args:
+        data_dict (dict): The dictionary to be saved.
+        file_path (str): The path to the file.
+        
+    Returns:
+        None
+    """
     with open(file_path, "w") as file:
         for k, v in data_dict.items():
             if isinstance(v, list):
@@ -148,29 +192,77 @@ def save_dict_to_text(data_dict, file_path):
 
 
 def save_dict_to_pickle(data_dict, file_path):
+    """
+    Saves a dictionary to a pickle file.
+
+    Args:
+        data_dict (dict): The dictionary to be saved.
+        file_path (str): The path to the file.
+    
+    Returns:
+        None
+    """
     with open(file_path, "wb") as file:
         pickle.dump(data_dict, file)
 
 
 def save_set_uris_to_text(set_uris, file_path):
+    """
+    Saves a set of triples to a text file.
+    
+    Args:
+        set_uris (set): The set of triples to be saved.
+        file_path (str): The path to the file.
+        
+    Returns:
+        None
+    """
     with open(file_path, "w") as file:
         for t in set_uris:
             file.write(f"""<{t[0]}> <{t[1]}> <{t[2]}> .\n""")
 
 
 def save_set_ids_to_text(set_ids, file_path):
+    """
+    Saves a set of triples to a text file.
+
+    Args:
+        set_ids (set): The set of triples to be saved.
+        file_path (str): The path to the file.
+
+    Returns:
+        None
+    """
     with open(file_path, "w") as file:
         for t in set_ids:
             file.write(f"""{t[0]}\t{t[1]}\t{t[2]}\n""")
 
 
 def load_json(file_path):
+    """
+    Loads a JSON file.
+
+    Args:
+        file_path (str): The path to the file.
+
+    Returns:
+        dict: The loaded JSON file.
+    """
     path = pathlib.Path(file_path)
     with path.open() as file:
         return json.load(file)
 
 
 def load_json_template():
+    """
+    Loads a JSON file.
+    
+    Args:
+        file_path (str): The path to the file.
+        
+    Returns:
+        dict: The loaded JSON file.
+    """
     json_file_path = pkg_resources.resource_filename("pygraft", "examples/template.json")
     destination_directory = os.getcwd()
     # Use the 'cp' command to copy the file
@@ -179,6 +271,15 @@ def load_json_template():
 
 
 def load_yaml_template():
+    """
+    Loads a YAML file.
+
+    Args:
+        file_path (str): The path to the file.
+
+    Returns:
+        dict: The loaded YAML file.
+    """
     yaml_file_path = pkg_resources.resource_filename("pygraft", "examples/template.yml")
     destination_directory = os.getcwd()
     # Use the 'cp' command to copy the file

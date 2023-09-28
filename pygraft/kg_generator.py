@@ -18,9 +18,9 @@ class InstanceGenerator:
 
     def init_params(self, **kwargs):
         """
-        Initialize general KG information with user-specified parameters.
+        Initializes general KG information with user-specified parameters.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
             kwargs (dict): Dictionary of parameter names and values.
 
@@ -39,9 +39,9 @@ class InstanceGenerator:
 
     def init_utils(self, **kwargs):
         """
-        Initialize auxiliary information.
+        Initializes auxiliary information.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
             kwargs (dict): Dictionary of parameter names and values.
 
@@ -58,9 +58,9 @@ class InstanceGenerator:
 
     def load_schema_info(self):
         """
-        Load schema information from class_info.json and relation_info.json files.
+        Loads schema information from class_info and relation_info json files.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
 
         Returns:
@@ -80,7 +80,7 @@ class InstanceGenerator:
         Assembles the KG information and returns a dictionary
         containing statistics and user parameters.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
 
         Returns:
@@ -117,12 +117,12 @@ class InstanceGenerator:
 
     def write_kg(self):
         """
-        Write the kg to a file.
+        Writes the KG to a file.
         Initializes a new RDFGraph object and parses the schema.
         Each triple in the KG is added to the full graph.
         The full graph is then serialized to a file and checked for consistency.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
 
         Returns:
@@ -172,7 +172,7 @@ class InstanceGenerator:
         """
         Assigns the most specific class to each entity based on the hierarchy depth.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
 
         Returns:
@@ -192,9 +192,9 @@ class InstanceGenerator:
 
     def complete_typing(self):
         """
-        Complete the typing for the current entity (if multityping is enabled).
+        Completes the typing for the current entity (if multityping is enabled).
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
 
         Returns:
@@ -227,9 +227,9 @@ class InstanceGenerator:
 
     def check_multityping(self):
         """
-        Check the multityping of entities and update the badly typed entities.
+        Checks the multityping of entities and updates the badly typed entities.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
 
         Returns:
@@ -253,7 +253,7 @@ class InstanceGenerator:
         """
         Extends the superclasses of entities.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
 
         Returns:
@@ -271,9 +271,9 @@ class InstanceGenerator:
 
     def calculate_avg_multityping(self):
         """
-        Calculate the average value of the multityping in the KG.
+        Calculates the average value of the multityping in the KG.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
 
         Returns:
@@ -284,9 +284,9 @@ class InstanceGenerator:
 
     def find_compatible_classes(self, class_list):
         """
-        Find the classes that are compatible with the given class list.
+        Finds the classes that are compatible with the given class list.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
             class_list (list): A list of classes.
 
@@ -311,7 +311,7 @@ class InstanceGenerator:
         """
         Pipeline for processing entities and subsequently generating triples.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
 
         Return:
@@ -369,7 +369,7 @@ class InstanceGenerator:
         """
         Distributes relations based on the number of triples and the relation balance ratio.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
 
         Return:
@@ -393,7 +393,7 @@ class InstanceGenerator:
         """
         Generates triples for the KG.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
 
         Returns:
@@ -437,7 +437,7 @@ class InstanceGenerator:
         """
         Generates a single triple based on the given relation.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
             r (str): The relation for which to generate the triple.
 
@@ -512,9 +512,9 @@ class InstanceGenerator:
 
     def check_consistency(self, triple):
         """
-        Check the consistency of a triple before adding it to the KG.
+        Checks the consistency of a triple before adding it to the KG.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
             triple (tuple): A tuple representing a candidate triple (h, r, t).
 
@@ -547,13 +547,13 @@ class InstanceGenerator:
 
     def check_inverseof_asymmetry(self):
         """
-        Check if the inverse-of-asymmetry condition holds for the given relations.
+        Checks if the inverse-of-asymmetry condition holds for the given relations.
 
         This method checks if the inverse-of-asymmetry condition holds for each pair of relations (R1, R2)
         in the rel2inverse dictionary. The inverse-of-asymmetry condition states that if R1 is the inverse of R2,
         and either R1 or R2 is asymmetric, then the same (h, t) pair cannot be observed with both R1 and R2.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
 
         Returns:
@@ -574,9 +574,9 @@ class InstanceGenerator:
 
     def check_dom_range(self):
         """
-        Check the domain and range of triples in the KG and removes inconsistent triples.
+        Checks the domain and range of triples in the KG and removes inconsistent triples.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
 
         Returns:
@@ -602,7 +602,7 @@ class InstanceGenerator:
         """
         Generates a dictionary containing pairs of inverse relations.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
 
         Returns:
@@ -620,9 +620,9 @@ class InstanceGenerator:
 
     def check_asymmetries(self):
         """
-        Check for asymmetries in the KG.
+        Checks for asymmetries in the KG.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
 
         Returns:
@@ -643,10 +643,10 @@ class InstanceGenerator:
 
     def check_class_disjointness(self, ent, expected_class):
         """
-        Check for class disjointness (owl:disjointWith) between domain/range of a relation
+        Checks for class disjointness (owl:disjointWith) between domain/range of a relation
         and the classes to which belong the randomly sampled entity.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
             ent (str): The entity to check.
             expected_class (str): The expected class as domain or range of a relation.
@@ -666,10 +666,10 @@ class InstanceGenerator:
 
     def oversample_triples_inference(self):
         """
-        This method infers new triples to be added to the KG based on logical deductions.
+        Infers new triples to be added to the KG based on logical deductions.
         Allows reaching user-specified number of triples without increasing the number of entities.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
 
         Returns:
@@ -719,9 +719,9 @@ class InstanceGenerator:
 
     def procedure_1(self):
         """
-        Check that domains and ranges are compatible with ent2classes_transitive of instantiated triples.
+        Checks that domains and ranges are compatible with ent2classes_transitive of instantiated triples.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
 
         Returns:
@@ -744,7 +744,6 @@ class InstanceGenerator:
                 }
                 self.kg -= problematic_triples
 
-        start = time.time()
         for rel in self.rel2range:
             if self.rel2range[rel] in self.class2disjoints_extended:
                 subset_kg = set([triple for triple in self.kg if triple[1] == rel])
@@ -765,7 +764,7 @@ class InstanceGenerator:
         """
         Checks if the inverse relationship between r1 and r2 satisfies certain conditions.
 
-        Parameters:
+        Args:
             self (object): The instance of the InstanceGenerator.
 
         Returns:

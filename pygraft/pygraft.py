@@ -15,6 +15,18 @@ from .kg_generator import InstanceGenerator
 
 
 def create_template(extension="yml"):
+    """
+    Creates a template file for the user to fill in.
+
+    Args:
+        extension (str, optional): File extension of the template file. Defaults to "yml".
+
+    Raises:
+        ValueError: If the extension is not one of the following: json, yaml, yml
+
+    Returns:
+        None
+    """
     if extension == "json":
         load_json_template()
     elif extension in {"yaml", "yml"}:
@@ -26,14 +38,41 @@ def create_template(extension="yml"):
 
 
 def create_json_template():
+    """
+    Creates a json template file for the user to fill in.
+
+    Args:
+        None
+    
+    Returns:
+        None
+    """
     load_json_template()
 
 
 def create_yaml_template():
+    """
+    Creates a yaml template file for the user to fill in.
+
+    Args:
+        None
+
+    Returns:
+        None
+    """
     load_yaml_template()
 
 
 def generate_schema(path):
+    """
+    Generates a schema based on the user's configuration file.
+    
+    Args:
+        path (str): Path to the user's configuration file.
+        
+    Returns:
+        None
+    """
     config = load_config(path)
     check_schema_arguments(config)
     config["schema_name"] = initialize_folder(config["schema_name"])
@@ -74,6 +113,15 @@ def generate_schema(path):
 
 
 def generate_kg(path):
+    """
+    Generates a knowledge graph based on the user's configuration file.
+
+    Args:
+        path (str): Path to the user's configuration file.
+
+    Returns:
+        None
+    """
     config = load_config(path)
     check_kg_arguments(config)
     if config["schema_name"] is None:
@@ -99,6 +147,15 @@ def generate_kg(path):
 
 
 def generate(path):
+    """
+    Generates a schema and knowledge graph based on the user's configuration file.
+
+    Args:
+        path (str): Path to the user's configuration file.
+    
+    Returns:
+        None
+    """
     config = load_config(path)
     check_schema_arguments(config)
     check_kg_arguments(config)

@@ -13,11 +13,11 @@ class ClassGenerator:
 
     def init_params(self, **kwargs):
         """
-        Initialize with user-specified parameters.
+        Initializes the parameters for the class generator.
 
-        Parameters:
+        Args:
             self (object): The instance of the ClassGenerator.
-            kwargs (dict): Dictionary of parameter names and values.
+            kwargs (dict): The keyword arguments.
 
         Returns:
             None
@@ -31,12 +31,12 @@ class ClassGenerator:
 
     def init_class_structures(self):
         """
-        Initialize with required data structures for class information.
+        Initializes the class structures for the class generator.
 
-        Parameters:
+        Args:
             self (object): The instance of the ClassGenerator.
 
-        Returns:
+        Returns:    
             None
         """
         self.classes = None
@@ -48,15 +48,13 @@ class ClassGenerator:
 
     def generate_class_schema(self):
         """
-        Generate the class schema.
+        Generates a class schema based on the given parameters.
 
-        If the `verbose` flag is set, the generated schema information is printed.
-
-        Parameters:
+        Args:
             self (object): The instance of the ClassGenerator.
 
         Returns:
-            class_info (dict): A dictionary containing information about the generated class schema.
+            class_info (dict): A dictionary containing various information about the class.
         """
         self.generate_class_hierarchy()
         self.generate_class_disjointness()
@@ -72,7 +70,7 @@ class ClassGenerator:
         """
         Assembles and returns information about the current class schema.
 
-        Parameters:
+        Args:
             self (object): The instance of the ClassGenerator.
 
         Returns:
@@ -101,6 +99,16 @@ class ClassGenerator:
         return class_info
 
     def generate_classes(self):
+        """
+        Generates the classes for the given self instance based on the
+        given number of classes.
+
+        Args:
+            self (object): The instance of the ClassGenerator.
+
+        Returns:
+            None
+        """
         self.classes = [f"C{i}" for i in range(1, self.num_classes + 1)]
 
     def generate_class_hierarchy(self):
@@ -110,7 +118,7 @@ class ClassGenerator:
         existing classes in the self instance. It assigns each class to a layer
         and establishes the parent-child relationships between them.
 
-        Parameters:
+        Args:
             self (object): The instance of the ClassGenerator.
 
         Returns:
@@ -154,7 +162,8 @@ class ClassGenerator:
 
     def smart_placing(self, c, current_avg_depth, current_inheritance_ratio):
         """
-        Determines the appropriate action to take based on the current average depth and current inheritance ratio.
+        Determines the appropriate action to take based on the current average depth 
+        and current inheritance ratio.
 
         Args:
             self (object): The instance of the ClassGenerator.
@@ -181,7 +190,7 @@ class ClassGenerator:
         This function adds randomness to the placement of classes in the hierarchy tree.
         Without this optional noise, trees tend to be vertical with only a few parents having most children.
         By putting more weight on the intermediate layers, which tend to be underpopulated otherwise,
-        the hierarchy becomes more realistic and diverse.
+        the hierarchy becomes more realistic.
 
         Args:
             self (object): The instance of the ClassGenerator.
@@ -206,7 +215,7 @@ class ClassGenerator:
 
     def create_deep_leaf_realistic(self, c):
         """
-        Creates a child to an already existing parent which is deep in the class hierarchy.
+        Create a child to an already existing parent which is deep in the class hierarchy.
 
         => |S| += 1; |C| += 1; |L| += 1
         => Inheritance ratio increases.
@@ -315,7 +324,7 @@ class ClassGenerator:
 
     def create_shallow_leaf(self, c):
         """
-        Create a shallow leaf by adding a new class to the class hierarchy.
+        Creates a shallow leaf by adding a new class to the class hierarchy.
 
         Args:
             self (object): The instance of the ClassGenerator.
@@ -330,9 +339,9 @@ class ClassGenerator:
 
     def create_shallow_leaf_root(self, c):
         """
-        Create a leaf which is placed just under the root of the class hierarchy.
+        Creates a leaf which is placed just under the root of the class hierarchy.
 
-        Parameters:
+        Args:
             self (object): The instance of the ClassGenerator.
             c (str): The name of the class.
 
@@ -344,8 +353,8 @@ class ClassGenerator:
     def generate_class_disjointness(self):
         """
         Generates class disjointness by randomly selecting two classes and making them incompatible.
-        Updates the class mappings and extends the incompatibilities to subclasses.
-        Calculates the current class disjointness and stops when it reaches the average disjointness threshold.
+        Updates the class mappings and extend the incompatibilities to subclasses.
+        Calculates the current class disjointness and stops when average disjointness threshold is reached.
 
         Args:
             self (object): The instance of the ClassGenerator.
@@ -439,9 +448,9 @@ class ClassGenerator:
 
     def print_schema(self):
         """
-        Print the generated class schema.
+        Prints the generated class schema.
 
-        Parameters:
+        Args:
             self (object): The instance of the ClassGenerator.
 
         Returns:

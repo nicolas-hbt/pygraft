@@ -13,6 +13,19 @@ from pygraft.utils import reasoner
 
 class SchemaBuilder:
     def __init__(self, class_info, relation_info, folder_name, format):
+        """
+        Initializes the SchemaBuilder class.
+
+        Args:
+            self (object): The instance of the SchemaBuilder.
+            class_info (dict): A dictionary containing class information.
+            relation_info (dict): A dictionary containing relation information.
+            folder_name (str): The name of the folder to be created. If None, a folder with the current date and time will be created.
+            format (str): The format of the output file. Can be either "xml" or "ttl".
+
+        Returns:
+            None
+        """
         self.class_info = class_info
         self.relation_info = relation_info
         self.format = format
@@ -23,8 +36,8 @@ class SchemaBuilder:
         """
         Initializes a folder for output files.
 
-        Parameters:
-            self: The instance of the SchemaBuilder.
+        Args:
+            self (object): The instance of the SchemaBuilder.
             folder_name (str): The name of the folder to be created. If None, a folder with the current date and time will be created.
 
         Returns:
@@ -44,8 +57,8 @@ class SchemaBuilder:
         """
         Saves the dictionary containing relation information and class information to JSON files.
 
-        Parameters:
-            self: The instance of the SchemaBuilder.
+        Args:
+            self (object): The instance of the SchemaBuilder.
 
         Returns:
             None
@@ -76,8 +89,8 @@ class SchemaBuilder:
         After setting up the namespaces and ontology, it calls helper functions to add classes, relations, and test the schema.
         Finally, it prints a message indicating that the schema has been created.
 
-        Parameters:
-            self: The instance of the SchemaBuilder.
+        Args:
+            self (object): The instance of the SchemaBuilder.
 
         Returns:
             None
@@ -113,8 +126,8 @@ class SchemaBuilder:
         """
         Adds classes to the graph based on the given class info.
 
-        Parameters:
-            self: The instance of the SchemaBuilder.
+        Args:
+            self (object): The instance of the SchemaBuilder.
 
         Returns:
             None
@@ -155,8 +168,8 @@ class SchemaBuilder:
         6. If the relation has a superrelation, it adds the subPropertyOf property to the relation URI.
         7. Serializes the graph to the specified output file.
 
-        Parameters:
-            self: The instance of the SchemaBuilder.
+        Args:
+            self (object): The instance of the SchemaBuilder.
 
         Returns:
             None
@@ -222,10 +235,10 @@ class SchemaBuilder:
 
     def test_schema(self):
         """
-        Test the schema by loading the ontology file and running a reasoner.
+        Tests the schema by loading the ontology file and running a reasoner.
 
-        Parameters:
-            self: The instance of the SchemaBuilder.
+        Args:
+            self (object): The instance of the SchemaBuilder.
 
         Returns:
             None
