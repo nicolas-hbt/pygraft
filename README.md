@@ -14,6 +14,10 @@
   <a href="https://pypi.org/project/pygraft" alt="pypi downloads">
     <img alt="pypi downloads" src="https://pepy.tech/badge/pygraft">
   </a>
+
+  <a href="https://github.com/psf/black">
+    <img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black">
+  </a>
 </p>
 
 # [PyGraft: Configurable Generation of Schemas and Knowledge Graphs at Your Fingertips](https://arxiv.org/pdf/2309.03685.pdf)
