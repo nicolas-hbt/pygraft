@@ -113,6 +113,8 @@ class RelationGenerator:
         self.prop_reflexive_relations = kwargs.get("prop_reflexive_relations")
         self.prop_irreflexive_relations = kwargs.get("prop_irreflexive_relations")
         self.prop_asymmetric_relations = kwargs.get("prop_asymmetric_relations")
+        self.rel2dom = {}
+        self.rel2range = {}
 
     def generate_relation_schema(self):
         """
@@ -238,8 +240,6 @@ class RelationGenerator:
         self.unprofiled_relations["range"] = [r for r, p in self.rel2patterns.items() if "owl:Reflexive" not in p]
         self.num_relations_wo_reflexive = len(self.unprofiled_relations["both"])
 
-        self.rel2dom = {}
-        self.rel2range = {}
         self.current_profile_ratio = 0.0
 
         while self.current_profile_ratio < self.prop_profiled_relations:
