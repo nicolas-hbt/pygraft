@@ -37,6 +37,8 @@ class RelationGenerator:
             None
         """
         self.init_params(**kwargs)
+        self.init_property_props(**kwargs)
+        self.init_relations()
         self.get_one_rel_compatibilities()
         self.get_inverseof_compatibilities()
 
@@ -74,7 +76,6 @@ class RelationGenerator:
         self.prop_profiled_relations = kwargs.get("prop_profiled_relations")
         self.profile_side = kwargs.get("profile_side")
         self.verbose = kwargs.get("verbose")
-        self.init_property_props(**kwargs)
 
     def init_property_props(self, **kwargs):
         """
@@ -113,6 +114,23 @@ class RelationGenerator:
         self.prop_reflexive_relations = kwargs.get("prop_reflexive_relations")
         self.prop_irreflexive_relations = kwargs.get("prop_irreflexive_relations")
         self.prop_asymmetric_relations = kwargs.get("prop_asymmetric_relations")
+
+    def init_relations(self):
+        """
+        Initializes the relations.
+
+        Args:
+            self (object): The instance of the RelationGenerator.
+
+        Returns:
+            None
+        """
+        self.relations = [f"R{i}" for i in range(1, self.num_relations + 1)]
+        self.rel2dom = {}
+        self.rel2range = {}
+        self.unprofiled_relations = {}
+        self.rel2inverse = {}
+        self.inverseof_relations = []
 
     def generate_relation_schema(self):
         """
@@ -201,7 +219,6 @@ class RelationGenerator:
         Returns:
             None
         """
-        self.relations = [f"R{i}" for i in range(1, self.num_relations + 1)]
         self.rel2patterns = {
             r: set() for r in self.relations
         }  # contains current ObjectProperties for each generated relation
@@ -223,14 +240,11 @@ class RelationGenerator:
         self.add_property("owl:Functional")
         self.add_property("owl:InverseFunctional")
 
-        self.inverseof_relations = []
-        self.rel2inverse = {}
         self.add_inverseof()
 
         self.class2disjoints_extended = self.class_info["class2disjoints_extended"]
         self.layer2classes = self.class_info["layer2classes"]
         self.class2layer = self.class_info["class2layer"]
-        self.unprofiled_relations = {}
 
         # Reflexivity is incompatible with domain and range assertions
         self.unprofiled_relations["both"] = [r for r, p in self.rel2patterns.items() if "owl:Reflexive" not in p]
@@ -238,8 +252,6 @@ class RelationGenerator:
         self.unprofiled_relations["range"] = [r for r, p in self.rel2patterns.items() if "owl:Reflexive" not in p]
         self.num_relations_wo_reflexive = len(self.unprofiled_relations["both"])
 
-        self.rel2dom = {}
-        self.rel2range = {}
         self.current_profile_ratio = 0.0
 
         while self.current_profile_ratio < self.prop_profiled_relations:
