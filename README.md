@@ -20,7 +20,7 @@
   </a>
 </p>
 
-# [PyGraft: Configurable Generation of Schemas and Knowledge Graphs at Your Fingertips](https://arxiv.org/pdf/2309.03685.pdf)
+# [PyGraft: Configurable Generation of Synthetic Schemas and Knowledge Graphs at Your Fingertips](https://arxiv.org/pdf/2309.03685.pdf)
 
 This is the open-source implementation of PyGraft, initially presented in [this paper](https://arxiv.org/pdf/2309.03685.pdf).
 
