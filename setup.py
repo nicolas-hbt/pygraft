@@ -37,8 +37,7 @@ setup(
       'pyyaml',
       'tabulate',
       'art',
-      'tqdm',
-      'pkg_resources'
+      'tqdm'
       ],
   python_requires='>=3.7',
   classifiers=[
