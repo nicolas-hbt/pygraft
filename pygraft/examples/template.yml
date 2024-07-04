@@ -36,3 +36,4 @@ prop_untyped_entities: 0.0
 avg_depth_specific_class: 2.0
 multityping: false
 avg_multityping: 1.5
+kg_check_reasoner: true

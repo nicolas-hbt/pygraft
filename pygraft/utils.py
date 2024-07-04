@@ -141,8 +141,16 @@ def check_kg_arguments(config):
     Returns:
         None
     """
+
     if config["multityping"] == False:
         config["avg_multityping"] = 1.0
+
+    # Define default value to run pygraft.utils.reasoner
+    if "kg_check_reasoner" in config.keys():
+        print(f"\nkg_check_reasoner {config['kg_check_reasoner']}.\n")
+    else:
+        print(f"\nkg_check_reasoner not defined, setting to True.\n")
+        config["kg_check_reasoner"] = True
 
 
 def reasoner(resource_file=None, infer_property_values=False, debug=False, keep_tmp_file=False, resource="schema"):

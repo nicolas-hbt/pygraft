@@ -36,6 +36,7 @@ class InstanceGenerator:
         self.multityping = kwargs.get("multityping")
         self.avg_multityping = kwargs.get("avg_multityping")
         self.multityping = False if self.avg_multityping == 0.0 else self.multityping
+        self.kg_check_reasoner = kwargs.get("kg_check_reasoner")
 
     def init_utils(self, **kwargs):
         """
@@ -126,7 +127,7 @@ class InstanceGenerator:
             self (object): The instance of the InstanceGenerator.
 
         Returns:
-            None
+            str(kg_file): The resulting KG file path, e.g. 'output/template/full_graph.rdf'.
         """
         self.graph = RDFGraph()
         self.graph.parse(f"{self.directory}schema.rdf") if self.format == "xml" else self.graph.parse(
@@ -156,7 +157,8 @@ class InstanceGenerator:
         kg_file = (
             f"{self.directory}full_graph.rdf" if self.format == "xml" else f"{self.directory}full_graph.{self.format}"
         )
-        reasoner(resource_file=kg_file, resource="KG")
+        return kg_file
+
 
     def generate_kg(self):
         self.pipeline()
@@ -166,7 +168,11 @@ class InstanceGenerator:
         self.procedure_1()
         self.procedure_2()
         kg_info = self.assemble_instance_info()
-        self.write_kg()
+        kg_file = self.write_kg()
+        if self.kg_check_reasoner:
+            reasoner(resource_file=kg_file, resource="KG")
+        else:
+            print(f"\nSkipping the KG check step with reasoning.\n")
 
     def assign_most_specific(self):
         """
