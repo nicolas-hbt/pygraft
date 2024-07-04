@@ -87,7 +87,7 @@ From a high-level perspective, the entire PyGraft generation pipeline is depicte
 </p>
 
 
-## Usage
+## Usage -- PyGraft as a package
 
 Once installed, PyGraft can be loaded with:
 
@@ -145,6 +145,26 @@ In most cases, one wants to generate both a schema and a KG in a single process.
 ```python
 pygraft.generate("template.yml")
 ```
+
+## Usage -- PyGraft from the CLI
+
+Assuming you have cloned the PyGraft repository to your computer:
+
+1. Install dependencies:
+  ```shell
+  pip install pygraft
+  ```
+2. Call the PyGraft entry point, from the project's root folder:
+  ```shell
+  # Displaying help
+  python -m pygraft.main --help
+  ```
+  ```shell
+  # Generating a schema from a local template file
+  python -m pygraft.main -g generate_schema -conf template.yml
+
+  # ...  then browse the resulting schema in the ./output/template folder.
+  ```
 
 ## About
 
