@@ -71,3 +71,14 @@ def main():
         generate_kg(args.config)
     if args.gen == "generate":
         generate(args.config)
+
+
+if __name__ == "__main__":
+    """
+    Main entry point for pygraft when starting the program from the CLI, e.g. `python -m pygraft.main --help` 
+    from the project's root.
+    
+    Do NOT run this program directly using `python main.py`, this would throw an 
+    `ImportError: attempted relative import with no known parent package` exception.
+    """
+    main()

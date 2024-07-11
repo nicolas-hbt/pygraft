@@ -142,6 +142,7 @@ def generate_kg(path):
         multityping=config["multityping"],
         avg_multityping=config["avg_multityping"],
         format=config["format"],
+        kg_check_reasoner=config["kg_check_reasoner"],
     )
     instance_generator.generate_kg()
 
@@ -207,5 +208,6 @@ def generate(path):
         multityping=config["multityping"],
         avg_multityping=config["avg_multityping"],
         format=config["format"],
+        kg_check_reasoner=config["kg_check_reasoner"],
     )
     instance_generator.generate_kg()
