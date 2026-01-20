@@ -20,6 +20,8 @@
   </a>
 </p>
 
+<a href="https://trendshift.io/repositories/1454" target="_blank"><img src="https://trendshift.io/api/badge/repositories/1454" alt="nicolas-hbt%2Fpygraft | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+
 # [PyGraft: Configurable Generation of Synthetic Schemas and Knowledge Graphs at Your Fingertips](https://arxiv.org/pdf/2309.03685.pdf)
 
 This is the open-source implementation of PyGraft, initially presented in [this paper](https://arxiv.org/pdf/2309.03685.pdf).
