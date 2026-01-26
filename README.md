@@ -170,7 +170,7 @@ Assuming you have cloned the PyGraft repository to your computer:
 
 ## About
 
-Interested in contributing to PyGraft? Please consider reaching out: nicolas.hubert@univ-lorraine.fr
+Interested in contributing to PyGraft? Please consider reaching out: nicotab540@gmail.com
 
 If you like PyGraft, consider downloading PyGraft and starring our GitHub repository to make it known and promote its development!
 
